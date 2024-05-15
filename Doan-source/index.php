@@ -11,7 +11,7 @@ session_start();
     <!-- FILE CSS -->
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/navigator.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <!-- <link rel="stylesheet" href="css/footer.css"> -->
     <link rel="stylesheet" href="css/home-page.css">
     <link rel="stylesheet" href="css/style_send-mail.css">
     <link rel="stylesheet" href="css/login-page.css">

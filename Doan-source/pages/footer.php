@@ -255,22 +255,22 @@
         </div>
         <div class="column">
            <h5>LIÊN HỆ</h5>
+           <div class="form-group">
+              <div class="col-xs-12 col-sm-11">
+                  <em class="fa fa-map-marker"></em>
+                  <address style="display: inline">316 Quốc Lộ 1A, Lương Hòa, Vĩnh Lương, Tp. Nha Trang, Khánh Hòa&nbsp;</address>
+              </div>
+              </div>
               <div class="form-group">
-                  <div class=""><em class="fa fa-map-marker">&nbsp;</em></div>
                   <div class="col-xs-12 col-sm-11">
-                      <address>316 Quốc Lộ 1A, Lương Hòa, Vĩnh Lương, Tp. Nha Trang, Khánh Hòa&nbsp;</address>
+                      <em class="fa-solid fa-envelope">&nbsp;</em>
+                      <p style="display: inline"><a  href="mailto:info@dtvietnam.com">info@dtvietnam.com</a>&nbsp;</p>
                   </div>
               </div>
               <div class="form-group">
-                  <div class=""><em class="fa-solid fa-envelope">&nbsp;</em></div>
-                  <div class="col-xs-12 col-sm-11">
-                      <p><a href="mailto:info@dtvietnam.com">info@dtvietnam.com</a>&nbsp;</p>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <div class=""><em class="fa fa-phone">&nbsp;</em></div>
                   <div class="col-xs-11 col-sm-11">
-                      <p>0258.222.6999 - 0833.831.183</p>
+                      <em class="fa fa-phone">&nbsp;</em>
+                      <p style="display: inline">0258.222.6999 - 0833.831.183</p>
                   </div>
               </div>
               <h3>FOLLOW US</h3>

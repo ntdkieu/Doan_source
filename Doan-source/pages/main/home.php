@@ -83,8 +83,8 @@ $product_type = "";
             <div class="css-152s1x3"><span
                     style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
                         alt="Chọn Quà Đúng Gu" sizes="100vw"
-                        srcset="https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w640 640w, https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w750 750w, https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w828 828w, https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w1080 1080w, https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w1200 1200w, https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w1920 1920w, https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w2048 2048w, https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w3840 3840w"
-                        src="https://lh3.googleusercontent.com/G4E6IOl-UmzXQSM16n-nSeW5Q3QzDfsepLCLGlt7ADT6_-35AMU8xOX1m50zKXDJ2Uv6EroDB6HvDQL_auKRRGN3ltxpThy9Ng=rw-w3840"
+                        srcset="https://www.dtvietnam.com/storage/pagedata/100303/img/slide/menu/20/z4276602712724_00e89ae5fd4e85a23550cc583f4b3141.jpg"
+                        src="https://media.suckhoecong.vn/thumb_x800x450/Images/Uploaded/Share/2022/08/05/tu-lam-yen-chung-bo-duong-suc-khoe-giua-mua-cum-a-hoanh-hanh11659667028.jpg"
                         decoding="async" data-nimg="fill"
                         style="border-radius: 5px 5px 0px 0px; position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: left top;"></span>
                 <div class="css-j8f2xf">
@@ -96,13 +96,8 @@ $product_type = "";
                     <div data-index="1" class=" css-12c5axd" data-content-region-name="hotDealTab"
                         data-track-content="true" data-content-name="Sản phẩm Giá Sốc">
                         <div type="title" class="css-1t4t2c9" style="text-align: center;">Sản phẩm Giá Sốc</div>
-                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Deal Bật Nốc</div>
                     </div>
-                    <div data-index="2" class=" css-12c5axd" data-content-region-name="hotDealTab"
-                        data-track-content="true" data-content-name="Sản phẩm săn vặt">
-                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Sản phẩm ăn vặt</div>
-                        
-                    </div>
+                   
                 </div>
                 <div style="position: relative; text-align: right; padding: 20px;"><a target="_self" class="css-cbrxda"
                         href="/c/flash-sales-2-1"><span style="color: white;">Xem tất cả</span><svg fill="none"
@@ -125,10 +120,15 @@ $product_type = "";
                                     <div class="home-page--glide__slides"
                                         style="transition: transform 0ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 1772px; transform: translate3d(0px, 0px, 0px);">
                                         <?php
-                                        $sql_products = "SELECT * FROM 'products'
-                                        ";
+                                        $sql_products = "SELECT * FROM `products`
+                                         join brand on products.BrandID = brand.BrandID
+                                         join productpicture on products.ProductID = productpicture.ProductID
+                                         join promotion on products.ProductID = promotion.ProductID
+                                         WHERE Discount >= 0.25"; // using backticks
                                         $result_products = mysqli_query($conn, $sql_products);
-                                        echo $result_products;
+                                        if (mysqli_num_rows($result_products) == 0) {
+                                            echo "null";
+                                        }
                                         if (mysqli_num_rows($result_products) <> 0) {
                                             while ($row_products = mysqli_fetch_assoc($result_products)) {
                                                 $product_name = $row_products['ProductName'];
@@ -150,7 +150,7 @@ $product_type = "";
                                                             data-track-content='true' data-content-name='230803500'
                                                             data-content-target='productDetail'><a target='_self'
                                                                 class='css-pxdb0j'
-                                                                href='?page=detail&maMH=$product_id'>
+                                                                href='?page=detail&ProductID=$product_id'>
                                                                 <div class='css-4rhdrh'>
                                                                     <div class='css-1v97aik'>
                                                                         <div class='css-798fc'>
@@ -178,7 +178,7 @@ $product_type = "";
                                                                         <div type='caption'
                                                                             class='att-product-card-title css-1uunp2d'
                                                                             color='textPrimary'>
-                                                                            <h3 title='Máy sấy tóc Dreame Hair Glory AHD6A-RS (Rose Gold)'
+                                                                            <h3 title=''
                                                                                 class='css-1xdyrhj'>$product_name</h3>
                                                                         </div>
                                                                     </div>
@@ -219,134 +219,7 @@ $product_type = "";
                 </div>
             </div>
         </div>
-        <div class="css-k9y40f">
-            <div id="COUNT_DOWN_PROMO_BIG_SKU-5770" class="css-1r9d2xy"></div>
-            <div class="css-152s1x3"><span
-                    style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
-                        alt="Ưu đãi Samsung cho Học sinh sinh viên" sizes="100vw"
-                        srcset="https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w640 640w, https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w750 750w, https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w828 828w, https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w1080 1080w, https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w1200 1200w, https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w1920 1920w, https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w2048 2048w, https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w3840 3840w"
-                        src="https://lh3.googleusercontent.com/iekE6KQ29-fGKefke68EDovM-tM7A3773OoS6dDs5fSqVXtrOjXdU_hnRi2FcnKhgcmHv5xZXHOV0SGBDU296kJ_xXN3prkqkg=rw-w3840"
-                        decoding="async" data-nimg="fill"
-                        style="border-radius: 5px 5px 0px 0px; position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: left top;"></span>
-                <div class="css-j8f2xf">
-                    <div data-index="0" class="active css-12c5axd" data-content-region-name="hotDealTab"
-                        data-track-content="true" data-content-name="Ưu đãi cho Học sinh sinh viên">
-                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Ưu đãi cho Học
-                            sinh
-                            sinh viên</div>
-                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Giảm thêm đến 100K</div>
-                    </div>
-                    <div data-index="1" class=" css-12c5axd" data-content-region-name="hotDealTab"
-                        data-track-content="true" data-content-name="Sales 10% - Chốt đơn liền">
-                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Sales 10% - Chốt đơn liền
-                        </div>
-                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Giảm đến 10%</div>
-                    </div>
-                </div>
-                <div style="position: relative; text-align: right; padding: 20px;"><a target="_self" class="css-cbrxda"
-                        href="/c/flash-sales-b1-1"><span style="color: white;">Xem tất cả</span><svg fill="none"
-                            viewBox="0 0 24 24" class="css-ymxljd" color="white" height="1em" width="1em"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.49976 19.0001L15.4998 12.0001L8.49976 5.00012" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg></a></div>
-                <div class="teko-row home-page--list-choose-main">
-                    <div class="teko-col teko-col-2 home-page--list-choose"
-                        style="margin: auto; display: block; flex: 0 0 16.66%; max-width: 16.66%;" id="countdown1">
-                    </div>
-                    <div class="teko-col teko-col-10 home-page--list-choose"
-                        style="display: block; flex: 0 0 83.33%; max-width: 83.33%;">
-                        <div class="css-gfmc8l">
-                            <div class="glide css-npa7ru glide--swipeable glide--ltr glide--slider"
-                                id="glideContainer1">
-                                <div class="glide__track" data-glide-el="track">
-
-                                    <!-- Begin hiển thị sản phẩm Acer giảm thêm 500k -->
-                                    <div class="home-page--glide__slides"
-                                        style="transition: transform 0ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 1417.6px; transform: translate3d(0px, 0px, 0px);">
-                                        <?php
-                                        $sql_products = "SELECT * FROM 'products'
-                                        join brand on `products`.BrandID = brand.BrandID
-                                        join productpicture on products.ProductID = productpicture.ProductID
-                                        join promotion on products.PromotionID = promotion.PromotionID
-                                        $result_products = mysqli_query($conn, $sql_products)
-                                        WHERE GiamGia >= 0.25";
-                                        if (mysqli_num_rows($result_products) > 0) {
-                                            while ($row_products = mysqli_fetch_assoc($result_products)) {
-                                                if ($row_products["BrandID"] == "DTNEST") {
-                                                    $product_name = $row_products['ProductName'];
-                                                    $product_price = $row_products["Price"];
-                                                    $product_brand = $row_products["BrandName"];
-                                                    $product_image = $row_products['PictureData'];
-                                                    $product_id = $row_products['ProductID'];
-                                                    $product_sale = $row_products['Discount'];
-                                                    $price_sale = $product_price - $product_price * $product_sale - 500000;
-                                                    $sale_rate = $product_sale * 100;
-                                                    $save_price = $product_price - $price_sale;
-                                                    $price_sale_format = number_format($price_sale, 0, '.', '.');
-                                                    $product_price_format = number_format($product_price, 0, '.', '.');
-                                                    $save_price_format = number_format($save_price, 0, '.', '.');
-
-                                                    echo "<div class='home-page--glide__slide glide__slide--active'
-                                                        style='height: unset; width: 179.2px; margin-right: 5px; margin-left: 5px;'>
-                                                        <div class='css-1ei4kcr'>
-                                                            <div class='product-card css-1msrncq'><a target='_self'
-                                                                    class='css-pxdb0j'
-                                                                    href='?page=detail&maMH=$product_id'>
-                                                                    <div class='css-4rhdrh'>
-                                                                        <div class='css-1v97aik'>
-                                                                            <div class='css-798fc'>
-                                                                                <div height='100%' width='100%' class='css-1uzm8bv'>
-                                                                                    <img src='$product_image'
-                                                                                        alt='$product_name'
-                                                                                        style='width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0px; left: 0px;'>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class='css-14q2k9d'>
-                                                                                <div class='css-zb7zul'>
-                                                                                    <div class='css-1bqeu8f'>TIẾT KIỆM</div>
-                                                                                    <div class='css-1rdv2qd'>$save_price_format&nbsp;₫</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class='css-68cx5s'>
-                                                                            <div type='body' color='textSecondary'
-                                                                                class='product-brand-name css-90n0z6'
-                                                                                style='text-transform: uppercase; display: inline;'>
-                                                                                $product_brand</div>
-                                                                        </div>
-                                                                        <div class='css-1ybkowq'>
-                                                                            <div type='caption'
-                                                                                class='att-product-card-title css-1uunp2d'
-                                                                                color='textPrimary'>
-                                                                                <h3 title='$product_name'
-                                                                                    class='css-1xdyrhj'>$product_name</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class='css-kgkvir'>
-                                                                            <div class='css-1co26wt'>
-                                                                                <div type='subtitle'
-                                                                                    class='att-product-detail-latest-price css-do31rh'
-                                                                                    color='primary500'>$price_sale_format&nbsp;₫</div>
-                                                                                <div class='css-3mjppt'>
-                                                                                    <div type='caption'
-                                                                                        class='att-product-detail-retail-price css-18z00w6'
-                                                                                        color='textSecondary'>$product_price_format&nbsp;₫</div>
-                                                                                    <div type='caption' color='primary500'
-                                                                                        class='css-2rwx6s'>-$sale_rate%</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>";
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                    </div>
+      
                                     <!-- End hiển thị sản phẩm Acer giảm thêm 500k -->
 
                                     <div data-glide-el="controls" class="home-page--glide__arrows">
@@ -381,7 +254,7 @@ $product_type = "";
                             <div class='css-qikc2t'>
                                 <a target='_self' class='css-cbrxda' href='?page=search&search-input=$product_name'>
                                     <div height='56' width='56' class='css-1senw2f'><img
-                                            src='https://lh3.googleusercontent.com/wOhcPJSPsA2l653-KPjmfodiem9y3NS6Mji6SZhkNCKsuyHK9Z3x0X-2l8gikfPI5n1DX0Fg9bBCHsOI0ACZD7n20XHN4e72=rw'
+                                            src='https://www.dtvietnam.com/storage/pagedata/100303/img/images/product/6_HONG%20SAM%20COLLAGEN-01.png'
                                             loading='lazy' decoding='async' alt='Laptop'
                                             style='width: 100%; height: 56px; object-fit: cover;'></div>
                                     <div type='subtitle' class='css-pbicth'>$product_name</div>
@@ -402,31 +275,31 @@ $product_type = "";
                         <div width="100%" class="css-egxwy8" data-content-region-name="horizontalBanner2"
                             data-track-content="true" data-content-name="Asus ROG tháng 10" data-content-index="0"
                             data-content-target="https://phongvu.vn/asus-rog-strix-g15-g513rc-hn038w--s220300268">
-                            <img src="https://lh3.googleusercontent.com/XtKhmrgEt5uItWtpTA5kmLVhjiva1VZvRL1ROXtf0bvMYsGWOdV3tOiKpPFTg2B_KxvrVHQQtujsj0TkQVrsh9jsu_gKb4c1=w616-rw"
-                                loading="lazy" hover="zoom" decoding="async" alt="Asus ROG tháng 10"
-                                fetchpriority="auto" name="Asus ROG tháng 10" style="width: 100%; height: auto;">
+                            <img src="https://rongnhokhanhhoa.com/storage/pagedata/100641/img/images/menu/1_z3551036537119_69e3631e6145453aa39afa4b4fd1515e.jpg"
+                                loading="lazy" hover="zoom" decoding="async" alt="Rông nho tháng 10"
+                                fetchpriority="auto" name="Asus ROG tháng 10" style="width: 100%; height: 250px;">
                         </div>
                     </a>
                 </div>
                 <div class="teko-col teko-col-6 css-17ajfcv" style="padding-left: 8px; padding-right: 8px;"><a
                         data-testid="TekoLink" class="css-1h3fn00" href="/p/uu-dai-doc-quyen">
                         <div width="100%" class="css-egxwy8" data-content-region-name="horizontalBanner2"
-                            data-track-content="true" data-content-name="Nitro tháng 10" data-content-index="1"
+                            data-track-content="true" data-content-name="Rong biển sấy khô 10" data-content-index="1"
                             data-content-target="https://phongvu.vn/p/uu-dai-doc-quyen"><img
-                                src="https://lh3.googleusercontent.com/pmpFbS7kiNXIwKXjB4-snm6L31inUSAHv2UtBLIliQKFknmG5Tw2T_JrgbzAUbLTs3LWU32Plx3SSQsZdpJnV1aSwOQrOE_P=w616-rw"
+                                src="https://www.dtvietnam.com/storage/pagedata/100303/img/slide/menu/20/z4276602701165_4fa43140117127ab5f302116c9bf46ed.jpg"
                                 loading="lazy" hover="zoom" decoding="async" alt="Nitro tháng 10" fetchpriority="auto"
-                                name="Nitro tháng 10" style="width: 100%; height: auto;"></div>
+                                name="Nitro tháng 10" style="width: 100%; height: 250px;"></div>
                     </a></div>
             </div>
         </div>
         <div class="css-k9y40f">
             <div id="laptop-chi-tu-8-99-trieu" class="css-1r9d2xy"></div>
-            <div data-content-region-name="LAPTOP - CHỈ TỪ 13.99 triệuHorizontalBlock" data-track-content="true"
-                class="css-12hd8et" style="min-height: 416px;"><img alt="LAPTOP - CHỈ TỪ 13.99 triệu"
-                    src="https://lh3.googleusercontent.com/gVKL-i0fwAwNW07q1BlrXWrszrk3f-ktPdrMadJm2W8HX-fciH_nxiLcwz5EC9YmJLDLENX_H_BQIgFoabdpO4goEyMZVKJy=w1232"
+            <div data-content-region-name="" data-track-content="true"
+                class="css-12hd8et" style="min-height: 416px;"><img alt=""
+                    src="https://static.vecteezy.com/system/resources/previews/001/427/448/non_2x/green-background-with-glitters-and-sparkles-free-vector.jpg"
                     width="100%" height="100%" class="css-186ot5r">
                 <div class="css-1ld3dfv"><a target="_self" class="css-cbrxda" href="/c/sieu-sale-phong-vu-laptop-1">
-                        <div type="title" color="white" class="title css-t2k8cn">Yến chưng - CHỈ TỪ 35 nghìn</div>
+                        <div type="title" color="white" class="title css-t2k8cn">Sản phẩm DTNEST - CHỈ TỪ 35.000 </div>
                     </a><a target="_self" class="css-cbrxda" href="/c/sieu-sale-phong-vu-laptop-1">
                         <div color="white" class="css-180mh0r">Xem tất cả<svg fill="none" viewBox="0 0 24 24"
                                 class="css-ymxljd" color="white" height="1em" width="1em"
@@ -440,15 +313,15 @@ $product_type = "";
                         <div class="glide__slides"
                             style="transition: transform 0ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 4744px; transform: translate3d(0px, 0px, 0px);">
                             <?php
-                            $sql_products = "SELECT * FROM 'products'
-                            join brand on `products`.BrandID = brand.BrandID
+                            $sql_products = "SELECT * FROM `products`
+                            join brand on products.BrandID = brand.BrandID
                             join productpicture on products.ProductID = productpicture.ProductID
-                            join promotion on products.PromotionID = promotion.PromotionID
-                            $result_products = mysqli_query($conn, $sql_products)
-                            WHERE GiamGia >= 0.25";
+                            join promotion on products.ProductID = promotion.ProductID
+                            ";
+                            $result_products = mysqli_query($conn, $sql_products);
                             if (mysqli_num_rows($result_products) > 0) {
                                 while ($row_products = mysqli_fetch_assoc($result_products)) {
-                                    if ($row_products["BrandID"] == "DTNEST") {
+                                    if ($row_products["BrandID"] == "BRD00001") {
                                         $product_name = $row_products['ProductName'];
                                         $product_price = $row_products["Price"];
                                         $product_brand = $row_products["BrandName"];
@@ -462,13 +335,13 @@ $product_type = "";
                                     $product_price_format = number_format($product_price, 0, '.', '.');
                                     $save_price_format = number_format($save_price, 0, '.', '.');
 
-                                    if ($price_sale > 13990000) {
+                                    if ($price_sale > 35000) {
                                         echo "<div class='glide__slide glide__slide--active'
                                             style='height: unset; width: 227.2px; margin-right: 5px; margin-left: 5px;'>
                                             <div class='css-1ei4kcr'>
                                                 <div class='product-card css-1msrncq' data-track-content='true'
                                                     data-content-name='221101761' data-content-target='productDetail'><a
-                                                        target='_self' class='css-pxdb0j' href='?page=detail&maMH=$product_id'>
+                                                        target='_self' class='css-pxdb0j' href='?page=detail&ProductID=$product_id'>
                                                         <div class='css-4rhdrh'>
                                                             <div class='css-1v97aik'>
                                                                 <div class='css-798fc'>
@@ -563,10 +436,11 @@ $product_type = "";
                         if (!isset($_GET['op_page']))
                             $_GET['op_page'] = 1;
                         $offset = ($_GET['op_page'] - 1) * $rowsPerPage;
-                        $sql_products = "SELECT * FROM 'products'
-                        join brand on `products`.BrandID = brand.BrandID
-                        join productpicture on 'products'.ProductID = productpicture.ProductID
-                        join promotion on products.PromotionID = promotion.PromotionID LIMIT $offset, $rowsPerPage;";
+                        $sql_products = "SELECT * FROM `products`
+                                         join brand on products.BrandID = brand.BrandID
+                                         join productpicture on products.ProductID = productpicture.ProductID
+                                         join promotion on products.ProductID = promotion.ProductID
+                                         LIMIT $offset, $rowsPerPage;";
                         $result_products = mysqli_query($conn, $sql_products);
                         
                         $temp = $_GET['op_page'] * $rowsPerPage; // danh so thu tu
@@ -593,7 +467,7 @@ $product_type = "";
                                         <div class='product-card css-1msrncq' data-content-region-name='forYouListProduct'
                                             data-track-content='true' data-content-name='220303205' data-content-index='0'
                                             data-content-target='productDetail'><a target='_self' class='css-pxdb0j'
-                                                href='?page=detail&maMH=$product_id'>
+                                                href='?page=detail&ProductID=$product_id'>
                                                 <div class='css-4rhdrh'>
                                                     <div class='css-1v97aik'>
                                                         <div class='css-798fc'>
@@ -719,7 +593,7 @@ $product_type = "";
             // });
 
             // Set the date we're counting down to
-            var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+            var countDownDate = new Date("December 5, 2024 15:37:25").getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function () {

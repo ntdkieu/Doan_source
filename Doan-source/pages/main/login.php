@@ -25,7 +25,7 @@
       if (mysqli_num_rows($result_email_customer) > 0) {
         $row = mysqli_fetch_assoc($result_email_customer);
         $hashedPassword = $row['Password'];
-
+        echo $hashedPassword;
         if (password_verify($input_password, $hashedPassword)) {
           $_SESSION['loggedin_customer'] = true; // Lưu trạng thái đăng nhập
           if (!isset($_SESSION['cart'][$row['CustomerID']])) {

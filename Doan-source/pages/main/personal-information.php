@@ -163,7 +163,7 @@ if (isset($_SESSION['loggedin_employee'])) {
                                 <form action="#" method="post">
                                     <div name="name" value="Kiều Nguyễn Thị Diễm" class="css-1umbfo7">
                                         <div class="form-input__label css-1270aei">Họ tên</div>
-                                        <input name="ho_ten" class="form-input__input css-90j4a3" value="<?php
+                                        <input name="['FirstName'. 'LastName']" class="form-input__input css-90j4a3" value="<?php
                                         if (isset($_SESSION['loggedin_customer']))
                                             echo $info['FirstName'. 'LastName'];
                                         elseif (isset($_SESSION['loggedin_employee']))

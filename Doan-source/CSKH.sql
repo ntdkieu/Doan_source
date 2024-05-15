@@ -29,7 +29,7 @@ INSERT INTO `brand` (`BrandID`, `BrandName`) VALUES
 
 
 CREATE TABLE `contact` (
-  `ContactID` varchar(10) NOT NULL,
+  `ContactID` varchar(10)PRIMARY KEY NOT NULL,
   `CustomerID` varchar(10) NOT NULL,
   `EmployeeID` varchar(10) NOT NULL,
   `ContactDate` date NOT NULL,
@@ -37,6 +37,7 @@ CREATE TABLE `contact` (
   `_Description` text NOT NULL,
   `ProductID` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 -- --------------------------------------------------------
 INSERT INTO `contact` (`ContactID`, `CustomerID`, `EmployeeID`, `ContactDate`, `ContactType`, `_Description`, `ProductID`) VALUES
@@ -55,7 +56,7 @@ INSERT INTO `contact` (`ContactID`, `CustomerID`, `EmployeeID`, `ContactDate`, `
 --
 
 CREATE TABLE `customerfeedback` (
-  `FeedbackID` varchar(10) NOT NULL,
+  `FeedbackID` varchar(10) PRIMARY KEY NOT NULL,
   `CustomerID` varchar(10) NOT NULL,
   `FeedbackDate` date NOT NULL,
   `Rating` text NOT NULL,
@@ -82,7 +83,7 @@ INSERT INTO `customerfeedback` (`FeedbackID`, `CustomerID`, `FeedbackDate`, `Rat
 --
 
 CREATE TABLE `customers` (
-  `CustomerID` varchar(10) NOT NULL,
+  `CustomerID` varchar(10) PRIMARY KEY NOT NULL,
   `FirstName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `LastName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
@@ -132,7 +133,7 @@ INSERT INTO `customers` (`CustomerID`, `FirstName`, `LastName`, `Email`, `Phone`
 --
 
 CREATE TABLE `deliveryaddress` (
-  `AddressID` varchar(10) NOT NULL,
+  `AddressID` varchar(10) PRIMARY KEY NOT NULL,
   `CustomerID` varchar(10) NOT NULL,
   `ReceiverName` varchar(100) NOT NULL,
   `DeliveryAddress` varchar(200) NOT NULL,
@@ -161,7 +162,7 @@ INSERT INTO `deliveryaddress` (`AddressID`, `CustomerID`, `ReceiverName`, `Deliv
 --
 
 CREATE TABLE `orders` (
-  `ID` varchar(10) NOT NULL,
+  `ID` varchar(10) PRIMARY KEY NOT NULL,
   `ReceiverName` text NOT NULL,
   `phone` varchar(10) NOT NULL,
   `Address` text NOT NULL,
@@ -187,7 +188,7 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `district` (
-  `DistrictID` varchar(10) NOT NULL,
+  `DistrictID` varchar(10) PRIMARY KEY NOT NULL,
   `ProvinceID` varchar(10) NOT NULL,
   `name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -906,7 +907,7 @@ INSERT INTO `district` (`DistrictID`, `ProvinceID`, `name`) VALUES
 --
 
 CREATE TABLE `employees` (
-  `EmployeeID` varchar(10) NOT NULL,
+  `EmployeeID` varchar(10) PRIMARY KEY NOT NULL,
   `Email` varchar(50) NOT NULL,
   `EmployeeFirstName` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `EmployeeLastName` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -938,7 +939,7 @@ INSERT INTO `employees` (`EmployeeID`, `Email`, `EmployeeFirstName`, `EmployeeLa
 --
 
 CREATE TABLE `positions` (
-  `PositionID` varchar(10) NOT NULL,
+  `PositionID` varchar(10) PRIMARY KEY NOT NULL,
   `PositionName` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -958,7 +959,7 @@ INSERT INTO `positions` (`PositionID`, `PositionName`) VALUES
 --
 
 CREATE TABLE `productcategory` (
-  `ProductTypeID` varchar(10) NOT NULL,
+  `ProductTypeID` varchar(10) PRIMARY KEY NOT NULL,
   `TypeName` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1077,7 +1078,7 @@ INSERT INTO `promotion` (`PromotionID`, `ProductName`, `Description`, `Discount`
 --
 
 CREATE TABLE `province` (
-  `ProvinceID` int(10) NOT NULL,
+  `ProvinceID` int(10) PRIMARY KEY NOT NULL,
   `name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1170,7 +1171,7 @@ CREATE TABLE `orderdetail` (
   `Quantity` int(11) NOT NULL,
   `Price` int(11) NOT NULL,
   `ProductID` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`, `OrderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `orderdetail` (`ID`, `OrderID`, `Quantity`, `Price`, `ProductID`) VALUES
@@ -1223,7 +1224,7 @@ INSERT INTO `transactiondetails` (`TransactionID`, `ProductID`, `Quantity`, `Uni
 --
 
 CREATE TABLE `transactions` (
-  `TransactionID` varchar(10) NOT NULL,
+  `TransactionID` varchar(10) PRIMARY KEY NOT NULL,
    `CustomerID` varchar(10) NOT NULL,
   `TransactionDate` date NOT NULL,
   `EmployeeID` varchar(10) DEFAULT NULL,

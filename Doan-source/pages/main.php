@@ -28,7 +28,7 @@
         include 'main/personal-information.php';
     } elseif ($tam == 'register') {
         include 'main/register.php';
-    } elseif ($tam == 'detail' && isset($_GET['maMH'])) {
+    } elseif ($tam == 'detail' && isset($_GET['ProductID'])) {
         include 'main/detail.php';
     } elseif ($tam == 'cart-page') {
         include 'main/cart-page.php';

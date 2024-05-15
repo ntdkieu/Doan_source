@@ -5,16 +5,16 @@ if ($conn->connect_error) {
   die("Kết nối tới cơ sở dữ liệu thất bại: " . $conn->connect_error);
 }
 
-if (isset($_GET['maMH'])) {
-  $maMH = $_GET['maMH'];
+if (isset($_GET['ProductID'])) {
+  $maMH = $_GET['ProductID'];
 
   $sql = "SELECT *
         FROM `products`
-        JOIN brand ON products.BrandID = dmhangsanxuat.BrandID
+        JOIN brand ON products.BrandID = brand.BrandID
         JOIN productcategory ON products.ProductTypeID = productcategory.ProductTypeID
-        join promotion on `products`.	PromotionID = promotion.PromotionID
-        JOIN productpicture ON products.CustomerID = productpicture.CustomerID
-        WHERE products.CustomerID = '$maMH'";
+        join promotion on `products`.ProductID = promotion.ProductID
+        JOIN productpicture ON products.ProductID = productpicture.ProductID
+        WHERE products.ProductID = '$maMH'";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
@@ -121,9 +121,9 @@ if (isset($_GET['maMH'])) {
                         <div type="caption" color="textSecondary" class="css-1f5a6jh"
                           style="font-size: 14px; margin-top: -4px;">Thương hiệu: <a target="_self" class="css-cbrxda"
                             href="/dreame-brand.dreame"><span class="css-n67qkj">
-                              <?php echo $row['TenHSX']; ?>
-                            </span></a><span class="css-1qgvt7n"></span> || Ma:
-                          <?php echo $row['ProdutID']; ?><span class="css-1qgvt7n"></span>
+                              <?php echo $row['BrandName']; ?>
+                            </span></a><span class="css-1qgvt7n"></span> || Mã:
+                          <?php echo $row['ProductID']; ?><span class="css-1qgvt7n"></span>
                         </div>
                       </div>
                     </div>
@@ -321,14 +321,14 @@ if (isset($_GET['maMH'])) {
                   <div class="css-1i3ajxp">
                     <div type="body" class="css-1lchwqw" style="flex: 2 1 0%;">Thương hiệu</div>
                     <div type="body" class="css-1lchwqw" style="flex: 3 1 5%;">
-                      <?php echo $row['TenHSX']; ?>
+                      <?php echo $row['BrandName']; ?>
                     </div>
                   </div>
                   <div type="body" color="textSecondary" class="css-1geo7k4">Thông tin chung</div>
                   <div class="css-1i3ajxp">
                     <div type="body" class="css-1lchwqw" style="flex: 2 1 0%;">Tên sản phẩm</div>
                     <div type="body" class="css-1lchwqw" style="flex: 3 1 0%;">
-                      <?php echo $row['TenMH']; ?>
+                      <?php echo $row['ProductName']; ?>
                     </div>
                   </div>
                   <div type="body" color="textSecondary" class="css-1geo7k4">Thông tin chi tiết</div>
@@ -351,7 +351,7 @@ if (isset($_GET['maMH'])) {
                     $sql_products = "SELECT * FROM `products` 
                         join brand on `products`.BrandID = brand.BrandID
                         join productpicture on products.ProductID = productpicture.ProductID
-                        join promotion on products.PromotionID = promotion.PromotionID";         
+                        join promotion on products.ProductID = promotion.ProductID";         
                     $result_products = mysqli_query($conn, $sql_products);
                     if (mysqli_num_rows($result_products) <> 0) {
                       while ($row_products = mysqli_fetch_assoc($result_products)) {
@@ -361,9 +361,9 @@ if (isset($_GET['maMH'])) {
                         $product_image = $row_products['PictureData'];
                         $product_id = $row_products['ProductID'];
                         $product_sale = isset($row_products['Discount']) ? $row_products['Discount'] : 0;
-                        $price_sale = $product_price - $product_price * $product_sale - 500000;
+                        $price_sale = $product_price - $product_price * $product_sale;
                         $sale_rate = $product_sale * 100;
-                        $save_price = $product_price - $price_sale + 500000;
+                        $save_price = $product_price - $price_sale;
                         $price_sale_format = number_format($price_sale, 0, '.', '.');
                         $product_price_format = number_format($product_price, 0, '.', '.');
                         $save_price_format = number_format($save_price, 0, '.', '.');

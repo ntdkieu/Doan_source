@@ -14,7 +14,7 @@ if (isset($_SESSION['loggedin_customer'])) {
             $sql_cart = "SELECT * FROM products
             join brand on `products`.BrandID = brand.BrandID
             join productpicture on products.ProductID = productpicture.ProductID
-            join promotion on products.MaKM = promotion.PromotionID
+            join promotion on products.ProductID = promotion.ProductID
             WHERE products.ProductID IN ($session_array)";
             $result_cart = mysqli_query($conn, $sql_cart);
         

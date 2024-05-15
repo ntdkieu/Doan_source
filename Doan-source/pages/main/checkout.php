@@ -7,9 +7,9 @@ if (!isset($_SESSION['loggedin_customer']) and !isset($_SESSION['loggedin_employ
 // Check if the payment form is submitted
 if (isset($_POST["thanhtoan"])) {
 
-    foreach ($_SESSION['cart'][$info['MaKH']] as $product_id => $quantity) {
+    foreach ($_SESSION['cart'][$info['CustomerID']] as $product_id => $quantity) {
         // Fetch product price from the database using prepared statement
-        $sql_fetch_price = "SELECT DonGia FROM mathang WHERE MaMH = ?";
+        $sql_fetch_price = "SELECT DonGia FROM products WHERE ProductID = ?";
         $stmt_fetch_price = mysqli_prepare($conn, $sql_fetch_price);
         mysqli_stmt_bind_param($stmt_fetch_price, "s", $product_id);
         mysqli_stmt_execute($stmt_fetch_price);
@@ -26,7 +26,7 @@ if (isset($_POST["thanhtoan"])) {
         $selected_address = mysqli_real_escape_string($conn, $_POST['DiaChiChon']);
 
         // Extract the necessary address details from the selected address
-        $sql_diachi = "SELECT * FROM diachinhanhang WHERE MaDC = '$selected_address'";
+        $sql_diachi = "SELECT * FROM deliveryaddress WHERE AddressID = '$selected_address'";
         $result_diachi = mysqli_query($conn, $sql_diachi);
         // var_dump($result_diachi);exit;
 
@@ -36,28 +36,28 @@ if (isset($_POST["thanhtoan"])) {
 
         if (mysqli_num_rows($result_diachi) > 0) {
             while ($row = mysqli_fetch_assoc($result_diachi)) {
-                if (!empty($_SESSION['cart'][$info['MaKH']])) {
-                    $MaKH = $row['MaKH'];
-                    $tennguoinhan = $row['TenNguoiNhan'];
-                    $sdt = $row['SoDienThoai'];
-                    $thanhpho = $row['ThanhPho'];
-                    $quanhuyen = $row['QuanHuyen'];
-                    $phuongxa = $row['PhuongXa'];
+                if (!empty($_SESSION['cart'][$info['CustomerID']])) {
+                    $MaKH = $row['CustomerID'];
+                    $tennguoinhan = $row['ReceiverName'];
+                    $sdt = $row['Phone'];
+                    $thanhpho = $row['City'];
+                    $quanhuyen = $row['District'];
+                    $phuongxa = $row['Ward'];
                     
-                    $sql_province = "SELECT * FROM province WHERE province_id = '" . $thanhpho . "'";
+                    $sql_province = "SELECT * FROM province WHERE ProvinceID = '" . $thanhpho . "'";
                     $result_province = mysqli_query($conn, $sql_province);
                     $row_province = mysqli_fetch_assoc($result_province);  // removed [0]
                     
-                    $sql_district = "SELECT * FROM district WHERE district_id = '" . $quanhuyen . "'";
+                    $sql_district = "SELECT * FROM district WHERE DistrictID = '" . $quanhuyen . "'";
                     $result_district = mysqli_query($conn, $sql_district);
                     $row_district = mysqli_fetch_assoc($result_district);
                     
-                    $sql_wards = "SELECT * FROM wards WHERE wards_id = '" . $phuongxa . "'";
+                    $sql_wards = "SELECT * FROM wards WHERE WardsID = '" . $phuongxa . "'";
                     $result_wards = mysqli_query($conn, $sql_wards);
                     $row_wards = mysqli_fetch_assoc($result_wards);
                     
                     $diachi = $row['DiaChi'] . ', ' . $row_wards['name'] . ', ' . $row_district['name'] . ', ' . $row_province['name'];
-                    $sql_insert_order = "INSERT INTO `order`(`id`,`TenNguoiNhan`, `phone`, `address`, `total`, `created_time`, `MaKH`) 
+                    $sql_insert_order = "INSERT INTO `oders`(`ID`,`ReceiverName`, `Phone`, `Address`, `Total`, `CreatedTime`, `CustomerID`) 
                     VALUES ('NULL','$tennguoinhan','$sdt','$diachi','$total_money','" . time() . "','$MaKH')";
                     if (mysqli_query($conn, $sql_insert_order)) {
                         $orderID = $conn->insert_id;

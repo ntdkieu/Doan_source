@@ -4,7 +4,7 @@ $province_id = $_GET['province_id'];
 //$province_id = 1;
 //echo $province_id;
 
-$sql = "SELECT * FROM `district` WHERE `province_id` = '$province_id'";
+$sql = "SELECT * FROM `district` WHERE `ProvinceID` = '$province_id'";
 $result = mysqli_query($conn, $sql);
 
 $data[0] = [
@@ -13,7 +13,7 @@ $data[0] = [
 ];
 while ($row = mysqli_fetch_assoc($result)) {
     $data[] = [
-        'id' => $row['district_id'],
+        'id' => $row['DistrictID'],
         'name' => $row['name']
     ];
 }

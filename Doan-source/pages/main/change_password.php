@@ -6,7 +6,7 @@ if (!isset($_SESSION['loggedin_customer']) and !isset($_SESSION['loggedin_employ
 // Check if the user is logged in
 if (isset($_SESSION['loggedin_customer'])) {
 
-    $sql = "SELECT * FROM khachhang WHERE MaKH = '" . $_SESSION['MaKH'] . "'";
+    $sql = "SELECT * FROM customers WHERE CustomerID = '" . $_SESSION['CustomerID'] . "'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         $info = mysqli_fetch_assoc($result);
@@ -19,15 +19,15 @@ if (isset($_SESSION['loggedin_customer'])) {
                 'cost' => 12,
             ];
             if (preg_match("/^(?=.*[A-Z])(?=.*[a-z]).{8,}$/", $new_password)) {
-                if (password_verify($old_password, $info['MatKhau'])) {
+                if (password_verify($old_password, $info['Password'])) {
                     if ($new_password === $confirm_password) {
                         // Hash the new password
                         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT, $options);
 
                         // Update the password in the database
-                        $update_sql = "UPDATE khachhang SET MatKhau = ? WHERE MaKH = ?";
+                        $update_sql = "UPDATE customers SET Password = ? WHERE CustomerID = ?";
                         $update_statement = mysqli_prepare($conn, $update_sql);
-                        mysqli_stmt_bind_param($update_statement, "ss", $hashed_password, $_SESSION['MaKH']);
+                        mysqli_stmt_bind_param($update_statement, "ss", $hashed_password, $_SESSION['CustomerID']);
                         $update_result = mysqli_stmt_execute($update_statement);
 
 
@@ -49,7 +49,7 @@ if (isset($_SESSION['loggedin_customer'])) {
     }
 
     if (isset($_SESSION['loggedin_employee'])) {
-        $sql = "SELECT * FROM nhanvien WHERE MaNV = '" . $_SESSION['MaNV'] . "'";
+        $sql = "SELECT * FROM employees WHERE EmployeeID = '" . $_SESSION['EmployeeID'] . "'";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             $info = mysqli_fetch_assoc($result);
@@ -62,15 +62,15 @@ if (isset($_SESSION['loggedin_customer'])) {
                     'cost' => 12,
                 ];
                 if (preg_match("/^(?=.*[A-Z])(?=.*[a-z]).{8,}$/", $new_password)) {
-                    if (password_verify($old_password, $info['MatKhau'])) {
+                    if (password_verify($old_password, $info['Password'])) {
                         if ($new_password === $confirm_password) {
                             // Hash the new password
                             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT, $options);
 
                             // Update the password in the database
-                            $update_sql = "UPDATE nhanvien SET MatKhau = ? WHERE MaKH = ?";
+                            $update_sql = "UPDATE employees SET Password = ? WHERE CustomerID = ?";
                             $update_statement = mysqli_prepare($conn, $update_sql);
-                            mysqli_stmt_bind_param($update_statement, "ss", $hashed_password, $_SESSION['MaKH']);
+                            mysqli_stmt_bind_param($update_statement, "ss", $hashed_password, $_SESSION['CustomerID']);
                             $update_result = mysqli_stmt_execute($update_statement);
 
 
@@ -120,9 +120,9 @@ if (isset($_SESSION['loggedin_customer'])) {
                                 <b>
                                     <?php
                                     if (isset($_SESSION['loggedin_customer']))
-                                        echo $info['HoTenKH'];
+                                        echo $info['FirstName'. 'LastName'];
                                     elseif (isset($_SESSION['loggedin_employee']))
-                                        echo $info['HoTenNV'];
+                                        echo $info['EmployeeFirstName'. 'EmployeeLastName'];
                                     ?>
                                 </b>
                             </h5>

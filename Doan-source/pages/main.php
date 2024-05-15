@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DT Food</title>
 </head>
 
 <body>
@@ -18,8 +18,6 @@
         include 'main/home.php';
     } elseif ($tam == 'cskh') {
         include 'main/send-mail/form-send-mail.php';
-    } elseif ($tam == 'exercise') {
-        include 'main/exercise-page.php';
     } elseif ($tam == 'login') {
         include 'main/login.php';
     } elseif ($tam == 'register') {

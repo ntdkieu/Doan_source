@@ -5,7 +5,7 @@ if (!isset($_SESSION['loggedin_customer']) and !isset($_SESSION['loggedin_employ
 }
 
 if (isset($_SESSION['loggedin_customer'])) {
-    $sql = "SELECT * FROM khachhang WHERE MaKH = '" . $_SESSION['MaKH'] . "'";
+    $sql = "SELECT * FROM customers WHERE CustomerID = '" . $_SESSION['CustomerID'] . "'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $info = mysqli_fetch_assoc($result);
@@ -36,9 +36,9 @@ if (isset($_SESSION['loggedin_customer'])) {
                                 <b>
                                     <?php
                                     if (isset($_SESSION['loggedin_customer']))
-                                        echo $info['HoTenKH'];
+                                        echo $info['FirstName']. $info['LastName'];
                                     elseif (isset($_SESSION['loggedin_employee']))
-                                        echo $info['HoTenNV'];
+                                    echo $info['EmployeeFirstName']. $info['EmployeeLastName'];
                                     ?>
                                 </b>
                             </h5>
@@ -102,25 +102,25 @@ if (isset($_SESSION['loggedin_customer'])) {
                     </a>
                 </button>
                 <?php
-                $sql_address = "SELECT * FROM `diachinhanhang` WHERE MaKH = '" . $_SESSION['MaKH'] . "'";
+                $sql_address = "SELECT * FROM `deliveryAddress` WHERE CustomerID = '" . $_SESSION['CustomerID'] . "'";
                 $result_address = mysqli_query($conn, $sql_address);
                 if (mysqli_num_rows($result_address) > 0) {
                     while ($row_address = mysqli_fetch_assoc($result_address)) {
-                        $receiver_name = $row_address['TenNguoiNhan'];
-                        $receiver_sdt = $row_address['SoDienThoai'];
-                        $thanhpho = $row_address['ThanhPho'];
-                        $quanhuyen = $row_address['QuanHuyen'];
-                        $phuongxa = $row_address['PhuongXa'];
+                        $receiver_name = $row_address['ReceiverName'];
+                        $receiver_sdt = $row_address['Phone'];
+                        $thanhpho = $row_address['City'];
+                        $quanhuyen = $row_address['District'];
+                        $phuongxa = $row_address['Ward'];
 
-                        $sql_province = "SELECT * FROM province WHERE province_id = '" . $thanhpho . "'";
+                        $sql_province = "SELECT * FROM province WHERE ProvinceID = '" . $thanhpho . "'";
                         $result_province = mysqli_query($conn, $sql_province);
                         $row_province = mysqli_fetch_assoc($result_province);  // removed [0]
                 
-                        $sql_district = "SELECT * FROM district WHERE district_id = '" . $quanhuyen . "'";
+                        $sql_district = "SELECT * FROM district WHERE DistrictID = '" . $quanhuyen . "'";
                         $result_district = mysqli_query($conn, $sql_district);
                         $row_district = mysqli_fetch_assoc($result_district);
 
-                        $sql_wards = "SELECT * FROM wards WHERE wards_id = '" . $phuongxa . "'";
+                        $sql_wards = "SELECT * FROM wards WHERE WardSID = '" . $phuongxa . "'";
                         $result_wards = mysqli_query($conn, $sql_wards);
                         $row_wards = mysqli_fetch_assoc($result_wards);
 
@@ -132,7 +132,7 @@ if (isset($_SESSION['loggedin_customer'])) {
                                             <div type="subtitle" class="css-lzq1g0">' . $receiver_name . '</div>
                                         </div>
                                         <div type="body" color="textSecondary" class="css-1lihu4j">Địa chỉ: 
-                                        ' . $row_address['DiaChi'] . ", " . $row_wards['name'] . ", " . $row_district['name'] . ", " . $row_province['name'] . '</div>
+                                        ' . $row_address['DeliveryAddress'] . ", " . $row_wards['name'] . ", " . $row_district['name'] . ", " . $row_province['name'] . '</div>
                                         <div type="body" color="textSecondary" class="css-1npqwgp">Điện thoại: ' . $receiver_sdt . '</div>
                                     </div>
                                     <div class="teko-col css-17ajfcv" style="flex: 0 0 35%;">

@@ -5,17 +5,17 @@ if (isset($_GET['timKiem'])) {
 }
 
 if (isset($_SESSION['loggedin_customer'])) {
-    $sql = "SELECT * FROM khachhang WHERE MaKH = '" . $_SESSION['MaKH'] . "'";
+    $sql = "SELECT * FROM customers WHERE CustomerID = '" . $_SESSION['CustomerID'] . "'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $info = mysqli_fetch_assoc($result);
-        if (isset($_SESSION['cart'][$info['MaKH']])) {
-            $session_array = "'" . implode("','", array_keys($_SESSION['cart'][$info['MaKH']])) . "'";
-            $sql_cart = "SELECT * FROM mathang
-            join dmhangsanxuat on `mathang`.MaHSX = dmhangsanxuat.MaHSX
-            join anhmh on mathang.MaMH = anhmh.MaMH
-            join khuyenmai on mathang.MaKM = khuyenmai.MaKM
-            WHERE mathang.MaMH IN ($session_array)";
+        if (isset($_SESSION['cart'][$info['CustomerID']])) {
+            $session_array = "'" . implode("','", array_keys($_SESSION['cart'][$info['CustomerID']])) . "'";
+            $sql_cart = "SELECT * FROM products
+            join brand on `products`.BrandID = brand.BrandID
+            join productpicture on products.ProductID = productpicture.ProductID
+            join promotion on products.MaKM = promotion.PromotionID
+            WHERE products.ProductID IN ($session_array)";
             $result_cart = mysqli_query($conn, $sql_cart);
         
             if ($result_cart) {
@@ -28,7 +28,7 @@ if (isset($_SESSION['loggedin_customer'])) {
 }
 
 if (isset($_SESSION['loggedin_employee'])) {
-    $sql = "SELECT * FROM nhanvien WHERE MaNV = '" . $_SESSION['MaNV'] . "'";
+    $sql = "SELECT * FROM employees WHERE EmployeeID = '" . $_SESSION['EmployeeID'] . "'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $info = mysqli_fetch_assoc($result);
@@ -79,20 +79,20 @@ if (isset($_GET['search'])) {
                                                                 style="width: 100%; height: 100%;"></div>
                                                     </div>
                                                     <div type="caption" class="css-13yxnyc" style="flex: 1 1 0%;">
-                                                        Laptop</div>
+                                                        Yến sào</div>
                                                 </div>
                                             </a>
                                             <?php
 
                                             // ======== Begin In danh sách loại mặt hàng =========
-                                            $sql_products_type = "SELECT * FROM dmloaimathang";
+                                            $sql_products_type = "SELECT * FROM productcategory";
                                             $result_products_type = mysqli_query($conn, $sql_products_type);
 
                                             while ($row_products_type = mysqli_fetch_array($result_products_type)) {
-                                                $MaLMH = $row_products_type["MaLMH"];
-                                                $TenLoai = $row_products_type["TenLoai"];
+                                                $CategoryID = $row_products_type["ProductTypeID "];
+                                                $CategoryName = $row_products_type["TypeName"];
                                                 echo '<a class="home-page--main-child-left-main-child"
-                                                    href="?page=search&search-input=' . $TenLoai . '">
+                                                    href="?page=search&search-input=' . $CategoryName . '">
                                                     <div class="home-page--category-child">
                                                         <div class="css-w22-h22">
                                                             <div height="100%" width="100%" class="home-page--category-child-icon">
@@ -101,20 +101,20 @@ if (isset($_GET['search'])) {
                                                             </div>
                                                         </div>
                                                         <div type="caption" class="home-page--category-child-goods" style="flex: 1 1 0%;">
-                                                            ' . $TenLoai . '</div>
+                                                            ' . $CategoryName . '</div>
                                                     </div>
                                                 </a>';
                                             }
                                             // ======== End In danh sách loại mặt hàng =========
                                             // ======== Begin In danh sách hãng sản xuất =========
-                                            $sql_products_brands = "SELECT * FROM dmhangsanxuat";
+                                            $sql_products_brands = "SELECT * FROM brand";
                                             $result_products_brands = mysqli_query($conn, $sql_products_brands);
 
                                             while ($row_products_brands = mysqli_fetch_array($result_products_brands)) {
-                                                $MaHSX = $row_products_brands["MaHSX"];
-                                                $TenHSX = $row_products_brands["TenHSX"];
+                                                $brandID = $row_products_brands["BrandID"];
+                                                $brandName = $row_products_brands["BrandName"];
                                                 echo '<a class="home-page--main-child-left-main-child"
-                                                    href="?page=search&search-input=' . $TenHSX . '">
+                                                    href="?page=search&search-input=' . $brandName . '">
                                                     <div class="home-page--category-child">
                                                         <div class="css-w22-h22">
                                                             <div height="100%" width="100%" class="home-page--category-child-icon">
@@ -123,7 +123,7 @@ if (isset($_GET['search'])) {
                                                             </div>
                                                         </div>
                                                         <div type="caption" class="home-page--category-child-goods" style="flex: 1 1 0%;">
-                                                            ' . $TenHSX . '</div>
+                                                            ' . $brandName . '</div>
                                                     </div>
                                                 </a>';
                                             }
@@ -165,7 +165,7 @@ if (isset($_GET['search'])) {
                                     class="css-clickable">Xóa lịch sử</div>
                             </div>
                             <div data-content-region-name="recentSearch" data-track-content="true"
-                                data-content-name="laptop" data-content-target="searchProductResult"
+                                data-content-name="yensao" data-content-target="searchProductResult"
                                 data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:0}"
                                 class="nav-search-hictory-name"><span size="20" class="css-c1lbeq"></span>
                                 <div style="margin: 0px 0.6rem;">
@@ -175,27 +175,27 @@ if (isset($_GET['search'])) {
                                 </div>
                             </div>
                             <div data-content-region-name="recentSearch" data-track-content="true"
-                                data-content-name="iphone 15" data-content-target="searchProductResult"
+                                data-content-name="Yến chưng" data-content-target="searchProductResult"
                                 data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:1}"
                                 class="nav-search-hictory-name"><span size="20" class="css-c1lbeq"></span>
                                 <div style="margin: 0px 0.6rem;">
-                                    <div class="css-1488rru">iphone 15</div>
+                                    <div class="css-1488rru">Yến chưng</div>
                                 </div>
                             </div>
-                            <div data-content-region-name="recentSearch" data-track-content="true" data-content-name="lap"
+                            <div data-content-region-name="recentSearch" data-track-content="true" data-content-name="rong biển"
                                 data-content-target="searchProductResult"
                                 data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:2}"
                                 class="nav-search-hictory-name"><span size="20" class="css-c1lbeq"></span>
                                 <div style="margin: 0px 0.6rem;">
-                                    <div class="css-1488rru">lap</div>
+                                    <div class="css-1488rru">rong biển</div>
                                 </div>
                             </div>
-                            <div data-content-region-name="recentSearch" data-track-content="true" data-content-name="bàn"
+                            <div data-content-region-name="recentSearch" data-track-content="true" data-content-name="rong nho"
                                 data-content-target="searchProductResult"
                                 data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:3}"
                                 class="nav-search-hictory-name"><span size="20" class="css-c1lbeq"></span>
                                 <div style="margin: 0px 0.6rem;">
-                                    <div class="css-1488rru">bàn</div>
+                                    <div class="css-1488rru">rong nho</div>
                                 </div>
                             </div>
                             <div class="css-nloqo5">
@@ -205,45 +205,45 @@ if (isset($_GET['search'])) {
                                 </div>
                                 <div class="css-1xhsr74">
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="ma" data-content-target="searchProductResult"
+                                        data-content-name="yến" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:0}"
-                                        class="css-crf5cq">ma</div>
+                                        class="css-crf5cq">yến</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="hdmi" data-content-target="searchProductResult"
+                                        data-content-name="rong nho" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:1}"
-                                        class="css-crf5cq">hdmi</div>
+                                        class="css-crf5cq">rong nho</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="iphone 15" data-content-target="searchProductResult"
+                                        data-content-name="rong biển" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:2}"
-                                        class="css-crf5cq">iphone 15</div>
+                                        class="css-crf5cq">rong biển</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="bàn" data-content-target="searchProductResult"
+                                        data-content-name="tách nước" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:3}"
-                                        class="css-crf5cq">bàn</div>
+                                        class="css-crf5cq">tách nước</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="máy" data-content-target="searchProductResult"
+                                        data-content-name="OKINAWA" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:4}"
-                                        class="css-crf5cq">máy</div>
+                                        class="css-crf5cq">OKINAWA</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="ram" data-content-target="searchProductResult"
+                                        data-content-name="không đường" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:5}"
-                                        class="css-crf5cq">ram</div>
+                                        class="css-crf5cq">không đường</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="dell" data-content-target="searchProductResult"
+                                        data-content-name="trẻ em" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:6}"
-                                        class="css-crf5cq">dell</div>
+                                        class="css-crf5cq">trẻ em</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="ssd" data-content-target="searchProductResult"
+                                        data-content-name="phụ nữ mang thai" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:7}"
-                                        class="css-crf5cq">ssd</div>
+                                        class="css-crf5cq">phụ nữ mang thai</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="bàn phím không dây" data-content-target="searchProductResult"
+                                        data-content-name="mẹ bỉm" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:8}"
-                                        class="css-crf5cq">bàn phím không dây</div>
+                                        class="css-crf5cq">mẹ bỉm</div>
                                     <div data-content-region-name="popularKeyword" data-track-content="true"
-                                        data-content-name="laptop" data-content-target="searchProductResult"
+                                        data-content-name="người già" data-content-target="searchProductResult"
                                         data-content-payload="{&quot;screenName&quot;:&quot;searchProduct&quot;,&quot;index&quot;:9}"
-                                        class="css-crf5cq">laptop</div>
+                                        class="css-crf5cq">người già</div>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +290,7 @@ if (isset($_GET['search'])) {
                                                             </div>
                                                             <div class="ml-12 text-left">
                                                                 <div type="body" color="textSecondary" class="nav-common-text">Xin chào,</div>
-                                                                <div type="body" color="textSecondary" class="nav-ip-name">' . $info['HoTenKH'] . '</div>
+                                                                <div type="body" color="textSecondary" class="nav-ip-name">' . $info['FirstName'] . $info['LastName'] . '</div>
                                                             </div>
                                                         </div>
                                                     </div><span class="nav-ip-popup"
@@ -303,7 +303,7 @@ if (isset($_GET['search'])) {
                                                                         alt="Avatar" style="width: 100%;">
                                                                 </div>
                                                                 <div class="nav-ip-popup-info">
-                                                                <h3 class="name">' . $info['HoTenKH'] . '</h3>
+                                                                <h3 class="name">' .$info['FirstName'] . $info['LastName'] . '</h3>
                                                                     <h5 class="extra">' . $info['Email'] . '</h5>
                                                                 </div>
                                                             </div><a target="_self" class="nav-ip-popup-child" href="?page=personal-information">
@@ -391,7 +391,7 @@ if (isset($_GET['search'])) {
                                                             </div>
                                                             <div class="ml-12 text-left">
                                                                 <div type="body" color="textSecondary" class="nav-common-text">Xin chào,</div>
-                                                                <div type="body" color="textSecondary" class="nav-ip-name">' . $info['HoTenNV'] . '</div>
+                                                                <div type="body" color="textSecondary" class="nav-ip-name">' . $info['FirstName'] . $info['LastName'] . '</div>
                                                             </div>
                                                         </div>
                                                     </div><span class="nav-ip-popup"
@@ -404,7 +404,7 @@ if (isset($_GET['search'])) {
                                                                         alt="Avatar" style="width: 100%;">
                                                                 </div>
                                                                 <div class="nav-ip-popup-info">
-                                                                <h3 class="name">' . $info['HoTenNV'] . '</h3>
+                                                                <h3 class="name">' . $info['FirstName'] . $info['LastName'] . '</h3>
                                                                     <h5 class="extra">' . $info['Email'] . '</h5>
                                                                 </div>
                                                             </div><a target="_self" class="nav-ip-popup-child" href="?page=personal-information">
@@ -534,7 +534,7 @@ if (isset($_GET['search'])) {
                                         bạn</div>
                                     <div type="body" color="textSecondary" class="title nav-common-text">
                                         (<?php
-                                                 if(isset($_SESSION['loggedin_customer']) and isset($_SESSION['cart'][$info['MaKH']] )) {
+                                                 if(isset($_SESSION['loggedin_customer']) and isset($_SESSION['cart'][$info['CustomerID']] )) {
                                                     echo mysqli_num_rows($result_cart);
                                                  }
                                             ?>) sản
@@ -555,13 +555,13 @@ if (isset($_GET['search'])) {
                                         if (!empty($result_cart)) {
                                             $total_money = 0;
                                             while ($rows_cart = mysqli_fetch_assoc($result_cart)) {
-                                                $product_name = $rows_cart["TenMH"];
-                                                $product_price = $rows_cart["DonGia"];
-                                                $product_brand = $rows_cart["TenHSX"];
-                                                $product_image = $rows_cart['DLAnh'];
-                                                $product_id = $rows_cart['MaMH'];
-                                                $product_sale = $rows_cart['GiamGia'];
-                                                $quantity = $_SESSION['cart'][$info['MaKH']][$product_id];
+                                                $product_name = $rows_cart["ProductID"];
+                                                $product_price = $rows_cart["Price"];
+                                                $product_brand = $rows_cart["ProductName"];
+                                                $product_image = $rows_cart['PictureData'];
+                                                $product_id = $rows_cart['ProductID'];
+                                                $product_sale = $rows_cart['Promotion'];
+                                                $quantity = $_SESSION['cart'][$info['CustomerID']][$product_id];
                                                 $price_sale = $product_price - $product_price * $product_sale;
                                                 $money = ($product_price - $product_price * $product_sale) * $quantity; //Số tiền còn lại
                                                 $sale_rate = $product_sale * 100; //% khuyến mãi
@@ -616,7 +616,7 @@ if (isset($_GET['search'])) {
                                             <span class="css-htm2b9">
                                                 <?php if (isset($total_money_format))
                                                     echo $total_money_format ?>
-                                                    <span class="css-1ul6wk9">đ</span>
+                                                    <span class="css-1ul6wk9">//</span>
                                                 </span>
                                             </span>
                                         </div>

@@ -77,10 +77,7 @@ $product_type = "";
             </div>
         </div>
     <div>
-      
-
-
-
+    
         <div class="css-k9y40f">
             <div id="promotion" class="css-1r9d2xy"></div>
             <div class="css-152s1x3"><span
@@ -97,19 +94,14 @@ $product_type = "";
                         <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Săn Deal Lên Đến 25%</div>
                     </div>
                     <div data-index="1" class=" css-12c5axd" data-content-region-name="hotDealTab"
-                        data-track-content="true" data-content-name="Màn Hình Giá Sốc">
-                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Màn Hình Giá Sốc</div>
+                        data-track-content="true" data-content-name="Sản phẩm Giá Sốc">
+                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Sản phẩm Giá Sốc</div>
                         <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Deal Bật Nốc</div>
                     </div>
                     <div data-index="2" class=" css-12c5axd" data-content-region-name="hotDealTab"
-                        data-track-content="true" data-content-name="Phụ Kiện Điện Thoại">
-                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Phụ Kiện Điện Thoại</div>
-                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Sạc Nhanh Tiện Lợi</div>
-                    </div>
-                    <div data-index="3" class=" css-12c5axd" data-content-region-name="hotDealTab"
-                        data-track-content="true" data-content-name="Nâng Cấp Văn Phòng">
-                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Nâng Cấp Văn Phòng</div>
-                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Quà Tặng Chính Hãng</div>
+                        data-track-content="true" data-content-name="Sản phẩm săn vặt">
+                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Sản phẩm ăn vặt</div>
+                        
                     </div>
                 </div>
                 <div style="position: relative; text-align: right; padding: 20px;"><a target="_self" class="css-cbrxda"
@@ -133,20 +125,18 @@ $product_type = "";
                                     <div class="home-page--glide__slides"
                                         style="transition: transform 0ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 1772px; transform: translate3d(0px, 0px, 0px);">
                                         <?php
-                                        $sql_products = "SELECT * FROM `mathang`
-                                        join dmhangsanxuat on `mathang`.MaHSX = dmhangsanxuat.MaHSX
-                                        join anhmh on mathang.MaMH = anhmh.MaMH
-                                        join khuyenmai on mathang.MaKM = khuyenmai.MaKM
-                                        WHERE GiamGia >= 0.25";
+                                        $sql_products = "SELECT * FROM 'products'
+                                        ";
                                         $result_products = mysqli_query($conn, $sql_products);
+                                        echo $result_products;
                                         if (mysqli_num_rows($result_products) <> 0) {
                                             while ($row_products = mysqli_fetch_assoc($result_products)) {
-                                                $product_name = $row_products["TenMH"];
-                                                $product_price = $row_products["DonGia"];
-                                                $product_brand = $row_products["TenHSX"];
-                                                $product_image = $row_products['DLAnh'];
-                                                $product_id = $row_products['MaMH'];
-                                                $product_sale = $row_products['GiamGia'];
+                                                $product_name = $row_products['ProductName'];
+                                                $product_price = $row_products["Price"];
+                                                $product_brand = $row_products["BrandName"];
+                                                $product_image = $row_products['PictureData'];
+                                                $product_id = $row_products['ProductID'];
+                                                $product_sale = $row_products['Discount'];
                                                 $price_sale = $product_price - $product_price * $product_sale; //Số tiền còn lại
                                                 $sale_rate = $product_sale * 100; //% khuyến mãi
                                                 $save_price = $product_price - $price_sale; //Số tiền tiết kiệm
@@ -240,17 +230,17 @@ $product_type = "";
                         style="border-radius: 5px 5px 0px 0px; position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: left top;"></span>
                 <div class="css-j8f2xf">
                     <div data-index="0" class="active css-12c5axd" data-content-region-name="hotDealTab"
-                        data-track-content="true" data-content-name="Ưu đãi Samsung cho Học sinh sinh viên">
-                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Ưu đãi Laptop Dell cho Học
+                        data-track-content="true" data-content-name="Ưu đãi cho Học sinh sinh viên">
+                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Ưu đãi cho Học
                             sinh
                             sinh viên</div>
-                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Giảm thêm đến 500K</div>
+                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Giảm thêm đến 100K</div>
                     </div>
                     <div data-index="1" class=" css-12c5axd" data-content-region-name="hotDealTab"
-                        data-track-content="true" data-content-name="Sales Garmin - Chốt đơn liền">
-                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Sales Garmin - Chốt đơn liền
+                        data-track-content="true" data-content-name="Sales 10% - Chốt đơn liền">
+                        <div type="title" class="css-1t4t2c9" style="text-align: center;">Sales 10% - Chốt đơn liền
                         </div>
-                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Giảm đến 45%</div>
+                        <div type="subtitle" class="css-1rjvlsd" style="text-align: center;">Giảm đến 10%</div>
                     </div>
                 </div>
                 <div style="position: relative; text-align: right; padding: 20px;"><a target="_self" class="css-cbrxda"
@@ -275,21 +265,21 @@ $product_type = "";
                                     <div class="home-page--glide__slides"
                                         style="transition: transform 0ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 1417.6px; transform: translate3d(0px, 0px, 0px);">
                                         <?php
-                                        $sql_products = "SELECT * FROM `mathang`
-                                        join dmhangsanxuat on `mathang`.MaHSX = dmhangsanxuat.MaHSX
-                                        join khuyenmai on `mathang`.MaKM = khuyenmai.MaKM
-                                        join anhmh on mathang.MaMH = anhmh.MaMH";
-                                        $result_products = mysqli_query($conn, $sql_products);
-
+                                        $sql_products = "SELECT * FROM 'products'
+                                        join brand on `products`.BrandID = brand.BrandID
+                                        join productpicture on products.ProductID = productpicture.ProductID
+                                        join promotion on products.PromotionID = promotion.PromotionID
+                                        $result_products = mysqli_query($conn, $sql_products)
+                                        WHERE GiamGia >= 0.25";
                                         if (mysqli_num_rows($result_products) > 0) {
                                             while ($row_products = mysqli_fetch_assoc($result_products)) {
-                                                if ($row_products["MaHSX"] == "DE") {
-                                                    $product_name = $row_products['TenMH'];
-                                                    $product_price = $row_products["DonGia"];
-                                                    $product_brand = $row_products["TenHSX"];
-                                                    $product_image = $row_products['DLAnh'];
-                                                    $product_sale = $row_products['GiamGia'];
-                                                    $product_id = $row_products['MaMH'];
+                                                if ($row_products["BrandID"] == "DTNEST") {
+                                                    $product_name = $row_products['ProductName'];
+                                                    $product_price = $row_products["Price"];
+                                                    $product_brand = $row_products["BrandName"];
+                                                    $product_image = $row_products['PictureData'];
+                                                    $product_id = $row_products['ProductID'];
+                                                    $product_sale = $row_products['Discount'];
                                                     $price_sale = $product_price - $product_price * $product_sale - 500000;
                                                     $sale_rate = $product_sale * 100;
                                                     $save_price = $product_price - $price_sale;
@@ -380,12 +370,12 @@ $product_type = "";
                 </div>
                 <div class="css-nqhd5d">
                     <?php
-                    $sql_brand = "SELECT * FROM `dmhangsanxuat`";
+                    $sql_brand = "SELECT * FROM `brand`";
                     $result_brand = mysqli_query($conn, $sql_brand);
 
                     if (mysqli_num_rows($result_brand) <> 0) {
                         while ($row_brand = mysqli_fetch_assoc($result_brand)) {
-                            $product_name = $row_brand["TenHSX"];
+                            $product_name = $row_brand["BrandName"];
 
                             echo "
                             <div class='css-qikc2t'>
@@ -436,7 +426,7 @@ $product_type = "";
                     src="https://lh3.googleusercontent.com/gVKL-i0fwAwNW07q1BlrXWrszrk3f-ktPdrMadJm2W8HX-fciH_nxiLcwz5EC9YmJLDLENX_H_BQIgFoabdpO4goEyMZVKJy=w1232"
                     width="100%" height="100%" class="css-186ot5r">
                 <div class="css-1ld3dfv"><a target="_self" class="css-cbrxda" href="/c/sieu-sale-phong-vu-laptop-1">
-                        <div type="title" color="white" class="title css-t2k8cn">LAPTOP - CHỈ TỪ 13.99 triệu</div>
+                        <div type="title" color="white" class="title css-t2k8cn">Yến chưng - CHỈ TỪ 35 nghìn</div>
                     </a><a target="_self" class="css-cbrxda" href="/c/sieu-sale-phong-vu-laptop-1">
                         <div color="white" class="css-180mh0r">Xem tất cả<svg fill="none" viewBox="0 0 24 24"
                                 class="css-ymxljd" color="white" height="1em" width="1em"
@@ -450,19 +440,21 @@ $product_type = "";
                         <div class="glide__slides"
                             style="transition: transform 0ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 4744px; transform: translate3d(0px, 0px, 0px);">
                             <?php
-                            $sql_products = "SELECT * FROM `mathang`
-                            join dmhangsanxuat on `mathang`.MaHSX = dmhangsanxuat.MaHSX
-                            join khuyenmai on `mathang`.MaKM = khuyenmai.MaKM
-                            join anhmh on mathang.MaMH = anhmh.MaMH";
-                            $result_products = mysqli_query($conn, $sql_products);
-                            if (mysqli_num_rows($result_products) <> 0) {
+                            $sql_products = "SELECT * FROM 'products'
+                            join brand on `products`.BrandID = brand.BrandID
+                            join productpicture on products.ProductID = productpicture.ProductID
+                            join promotion on products.PromotionID = promotion.PromotionID
+                            $result_products = mysqli_query($conn, $sql_products)
+                            WHERE GiamGia >= 0.25";
+                            if (mysqli_num_rows($result_products) > 0) {
                                 while ($row_products = mysqli_fetch_assoc($result_products)) {
-                                    $product_name = $row_products["TenMH"];
-                                    $product_price = $row_products["DonGia"];
-                                    $product_brand = $row_products["TenHSX"];
-                                    $product_image = $row_products['DLAnh'];
-                                    $product_id = $row_products['MaMH'];
-                                    $product_sale = $row_products['GiamGia'];
+                                    if ($row_products["BrandID"] == "DTNEST") {
+                                        $product_name = $row_products['ProductName'];
+                                        $product_price = $row_products["Price"];
+                                        $product_brand = $row_products["BrandName"];
+                                        $product_image = $row_products['PictureData'];
+                                        $product_id = $row_products['ProductID'];
+                                        $product_sale = $row_products['Discount'];
                                     $price_sale = $product_price - $product_price * $product_sale;
                                     $sale_rate = $product_sale * 100;
                                     $save_price = $product_price - $price_sale;
@@ -525,7 +517,7 @@ $product_type = "";
                                                     </a></div>
                                             </div>
                                         </div>";
-                                    }
+                                    }}
 
                                 }
                             }
@@ -563,7 +555,7 @@ $product_type = "";
                         <?php
                         //phan trang
                         $rowsPerPage = 10;
-                        $sql_rows = "SELECT * FROM `mathang` ";
+                        $sql_rows = "SELECT * FROM `products` ";
                         $result_rows = mysqli_query($conn, $sql_rows);
                         $numRows = mysqli_num_rows($result_rows);
                         $maxPage = ceil($numRows / $rowsPerPage);
@@ -571,13 +563,12 @@ $product_type = "";
                         if (!isset($_GET['op_page']))
                             $_GET['op_page'] = 1;
                         $offset = ($_GET['op_page'] - 1) * $rowsPerPage;
-                        $sql_products = "SELECT * FROM `mathang`
-                            join dmhangsanxuat on `mathang`.MaHSX = dmhangsanxuat.MaHSX
-                            join khuyenmai on `mathang`.MaKM = khuyenmai.MaKM
-                            join anhmh on mathang.MaMH = anhmh.MaMH LIMIT $offset, $rowsPerPage;";
+                        $sql_products = "SELECT * FROM 'products'
+                        join brand on `products`.BrandID = brand.BrandID
+                        join productpicture on 'products'.ProductID = productpicture.ProductID
+                        join promotion on products.PromotionID = promotion.PromotionID LIMIT $offset, $rowsPerPage;";
                         $result_products = mysqli_query($conn, $sql_products);
-
-
+                        
                         $temp = $_GET['op_page'] * $rowsPerPage; // danh so thu tu
                         if ($temp <= $rowsPerPage)
                             $num = 0;
@@ -585,12 +576,12 @@ $product_type = "";
                             $num = $temp - $rowsPerPage;
                         if (mysqli_num_rows($result_products) <> 0) {
                             while ($row_products = mysqli_fetch_assoc($result_products)) {
-                                $product_name = $row_products['TenMH'];
-                                $product_price = $row_products["DonGia"];
-                                $product_brand = $row_products["TenHSX"];
-                                $product_image = $row_products['DLAnh'];
-                                $product_id = $row_products['MaMH'];
-                                $product_sale = $row_products['GiamGia'];
+                                $product_name = $row_products['ProductName'];
+                                $product_price = $row_products["Price"];
+                                $product_brand = $row_products["BrandName"];
+                                $product_image = $row_products['PictureData'];
+                                $product_id = $row_products['ProductID'];
+                                $product_sale = $row_products['Discount'];
                                 $price_sale = $product_price - $product_price * $product_sale;
                                 $sale_rate = $product_sale * 100;
                                 $save_price = $product_price - $price_sale;
@@ -694,7 +685,7 @@ $product_type = "";
                     ?>
                 </div>
             </div>
-            <!-- <div class="css-59raa2">
+            <div class="css-59raa2">
                 <div class="css-1sdem05">
                     <div class="css-19xt07j">
                         <div color="primary500" class="css-duo9ue" disabled=""><svg fill="none" viewBox="0 0 24 24"
@@ -714,8 +705,8 @@ $product_type = "";
                             </svg></div>
                     </div>
                 </div>
-            </div> -->
-        </div>
+            </div>
+         </div>
         <script>
             // $(document).ready(function () {
             //     // Thời gian chuyển đổi giữa các slide (đơn vị là mili giây)
@@ -804,3 +795,8 @@ $product_type = "";
             });
         </script>
     </div>
+      
+
+
+
+    

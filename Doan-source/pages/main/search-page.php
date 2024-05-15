@@ -18,7 +18,7 @@
 include("config.php");
 $search = $_GET['search-input'];
 if (isset($_GET['filter'])) {
-    $search = $_GET['Asus'];
+    $search = $_GET['yen'];
     header("Location: ?page=search&search-input=$search");
 }
 ?>
@@ -80,15 +80,15 @@ if (isset($_GET['filter'])) {
                                     <div direction="row" class="css-1skvw03">
 
                                         <?php
-                                        $sql_products_brands = "SELECT * FROM dmhangsanxuat";
+                                        $sql_products_brands = "SELECT * FROM brand";
                                         $result_products_brands = mysqli_query($conn, $sql_products_brands);
 
                                         while ($row_products_brands = mysqli_fetch_array($result_products_brands)) {
-                                            $MaHSX = $row_products_brands["MaHSX"];
-                                            $TenHSX = $row_products_brands["TenHSX"];
+                                            $MaHSX = $row_products_brands["BrandID"];
+                                            $TenHSX = $row_products_brands["BrandName"];
                                             echo '<div style="min-width: 100%;"><label class="check-box css-1p9luqs">
                                                     <div class="">
-                                                        <input type="checkbox" name="products[]" value="' . $TenHSX . '">
+                                                        <input type="checkbox" name="products[]" value="' . $BrandName . '">
                                                         <div class="checkbox-inner css-gfk8lf">
                                                             <svg fill="none" viewBox="0 0 24 24" size="12"
                                                                 class="css-u5ggi9" color="transparent" height="12"
@@ -100,17 +100,17 @@ if (isset($_GET['filter'])) {
                                                         </div>
                                                     </div>
                                                     <div type="body" class="checkbox-label css-6r3s23"
-                                                        style="flex: 1 1 0%;" name="' . $TenHSX . '">
+                                                        style="flex: 1 1 0%;" name="' . $BrandName . '">
                                                         <span>
                                                             <span style="display: flex;">
-                                                                <div>' . $TenHSX . '</div>
+                                                                <div>' . $BrandName . '</div>
                                                             </span>
                                                             <span class="css-22xpbp" data-popper-reference-hidden="false"
                                                                 data-popper-escaped="true" data-popper-placement="right"
                                                                 style="position: absolute; inset: 0px auto auto 0px; visibility: hidden; z-index: 999; transform: translate3d(106px, 150px, 0px);"><span
                                                                     class="arrow-left css-3mq3j4" data-placement="auto"
                                                                     style="position: absolute; top: 0px; transform: translate3d(0px, 15px, 0px);"></span>
-                                                                <div type="body" color="white" class="css-2h64mz">' . $TenHSX . '</div>
+                                                                <div type="body" color="white" class="css-2h64mz">' . $BrandName . '</div>
                                                             </span>
                                                         </span>
                                                     </div>
@@ -153,15 +153,14 @@ if (isset($_GET['filter'])) {
                                                 <div type="body" class="checkbox-label css-6r3s23"
                                                     style="flex: 1 1 0%;">
                                                     <span><span style="display: flex;">
-                                                            <div>Laptop GAMING</div>
+                                                            <div>Yến chưng</div>
                                                         </span><span class="css-22xpbp"
                                                             data-popper-reference-hidden="false"
                                                             data-popper-escaped="true" data-popper-placement="right"
                                                             style="position: absolute; inset: 0px auto auto 0px; visibility: hidden; z-index: 999; transform: translate3d(127px, 302px, 0px);"><span
                                                                 class="arrow-left css-3mq3j4" data-placement="auto"
                                                                 style="position: absolute; top: 0px; transform: translate3d(0px, 15px, 0px);"></span>
-                                                            <div type="body" color="white" class="css-2h64mz">Laptop
-                                                                GAMING
+                                                            <div type="body" color="white" class="css-2h64mz">Yến chưng
                                                             </div>
                                                         </span></span>
                                                 </div>
@@ -180,15 +179,14 @@ if (isset($_GET['filter'])) {
                                                 <div type="body" class="checkbox-label css-6r3s23"
                                                     style="flex: 1 1 0%;">
                                                     <span><span style="display: flex;">
-                                                            <div>Laptop Văn Phòng</div>
+                                                            <div>Rong nho</div>
                                                         </span><span class="css-22xpbp"
                                                             data-popper-reference-hidden="false"
                                                             data-popper-escaped="true" data-popper-placement="right"
                                                             style="position: absolute; inset: 0px auto auto 0px; visibility: hidden; z-index: 999; transform: translate3d(138px, 334px, 0px);"><span
                                                                 class="arrow-left css-3mq3j4" data-placement="auto"
                                                                 style="position: absolute; top: 0px; transform: translate3d(0px, 15px, 0px);"></span>
-                                                            <div type="body" color="white" class="css-2h64mz">Laptop Văn
-                                                                Phòng</div>
+                                                            <div type="body" color="white" class="css-2h64mz">Rong nho</div>
                                                         </span></span>
                                                 </div>
                                             </label></div>
@@ -206,15 +204,14 @@ if (isset($_GET['filter'])) {
                                                 <div type="body" class="checkbox-label css-6r3s23"
                                                     style="flex: 1 1 0%;">
                                                     <span><span style="display: flex;">
-                                                            <div>Laptop Cảm Ứng</div>
+                                                            <div>Rong biển</div>
                                                         </span><span class="css-22xpbp"
                                                             data-popper-reference-hidden="false"
                                                             data-popper-escaped="true" data-popper-placement="right"
                                                             style="position: absolute; inset: 0px auto auto 0px; visibility: hidden; z-index: 999; transform: translate3d(110px, 364px, 0px);"><span
                                                                 class="arrow-left css-3mq3j4" data-placement="auto"
                                                                 style="position: absolute; top: 0px; transform: translate3d(0px, 15px, 0px);"></span>
-                                                            <div type="body" color="white" class="css-2h64mz">Laptop Cảm
-                                                                Ứng
+                                                            <div type="body" color="white" class="css-2h64mz">Rong biển
                                                             </div>
                                                         </span></span>
                                                 </div>
@@ -246,8 +243,8 @@ if (isset($_GET['filter'])) {
             $valueproduct = [];
         }
 
-        if (isset($_POST['MaLMH'])) {
-            $loaimh = $_POST['MaLMH'];
+        if (isset($_POST['CategoryID'])) {
+            $loaimh = $_POST['CategoryID'];
         } else {
             $loaimh = []; // Gán một mảng rỗng nếu không tồn tại
         }
@@ -259,33 +256,25 @@ if (isset($_GET['filter'])) {
         <div class="teko-col teko-col-10 css-17ajfcv" style="padding-left: 8px; padding-right: 8px;">
             <div class="teko-row teko-row-start teko-row-baseline css-17jbfbn">
                 <h1 class="css-7nrxrf">Tìm kiếm:
-                    <?php if ($namepd == 'Acer') {
-                        echo 'Acer';
-                    } elseif ($namepd == 'Apple') {
-                        echo 'Apple';
-                    } elseif ($namepd == 'HP') {
-                        echo 'HP';
-                    } elseif ($namepd == 'Dell') {
-                        echo 'Dell';
-                    } elseif ($namepd == 'Asus') {
-                        echo 'Asus';
-                    } elseif ($namepd == 'Lenovo') {
-                        echo 'Lenovo';
-                    } elseif ($namepd == 'LG') {
-                        echo 'LG';
-                    } elseif ($namepd == 'Microsoft') {
-                        echo 'Microsoft';
-                    } elseif ($namepd == 'MSI') {
-                        echo 'MSI';
+                    <?php if ($namepd == 'Yến chưng') {
+                        echo 'Yến chưng';
+                    } elseif ($namepd == 'Yến sào') {
+                        echo 'Yến sào';
+                    } elseif ($namepd == 'Sữa non') {
+                        echo 'Sữa non';
+                    } elseif ($namepd == 'Rong nho') {
+                        echo 'Rong nho';
+                    } elseif ($namepd == 'Rong biển') {
+                        echo 'Rong biển';
                     }
                     ?>
                     <?php
-                    if ($nameloaimh == 'BSLT') {
-                        echo 'Laptop Văn Phòng';
-                    } elseif ($nameloaimh == 'GMLT') {
-                        echo 'Laptop Gaming';
-                    } elseif ($nameloaimh == 'TIOLT') {
-                        echo 'Laptop Cảm Ứng';
+                    if ($nameloaimh == 'YC') {
+                        echo 'Yến chưng';
+                    } elseif ($nameloaimh == 'RN') {
+                        echo 'Rong nho';
+                    } elseif ($nameloaimh == 'RB') {
+                        echo 'Rong biển';
                     }
                     ?>
 
@@ -327,8 +316,8 @@ if (isset($_GET['filter'])) {
                         } else {
                             $selectedProducts = [];
                         }
-                        if (isset($_POST['MaLMH'])) {
-                            $selectedLMH = $_POST['MaLMH'];
+                        if (isset($_POST['CategoryID'])) {
+                            $selectedLMH = $_POST['CategoryID'];
                         } else {
                             $selectedLMH = []; // Gán một mảng rỗng nếu không tồn tại
                         }
@@ -337,41 +326,41 @@ if (isset($_GET['filter'])) {
                         $nameLMH = implode(',', $selectedLMH);
                         $nameHSX = implode(', ', $selectedProducts);
                         if (empty($nameHSX) && empty($nameLMH)) {
-                            $query = "SELECT * FROM `mathang` 
-                                    join anhmh on mathang.MaMH = anhmh.MaMH
-                                    join dmhangsanxuat on mathang.MaHSX = dmhangsanxuat.MaHSX
-                                    join dmloaimathang on mathang.MaLMH = dmloaimathang.MaLMH
-                                    join khuyenmai on mathang.MaKM = khuyenmai.MaKM
-                                    WHERE TenMH LIKE '%$search%' || TenLoai LIKE '%$search%' || TenHSX LIKE '%$search%'";
+                            $query = "SELECT * FROM `products` 
+                                    join productpicture on products.ProductID = productpicture.products
+                                    join brand on products.BrandID = brand.BrandID
+                                    join productcategory on products.ProductTypeID = productcategory.ProductTypeID
+                                    join promotion on products.PromotionID = promotion.PromotionID
+                                    WHERE ProductName LIKE '%$search%' || TenLoai LIKE '%$search%' || BrandName LIKE '%$search%'";
                         } elseif (!empty($nameHSX) && empty($nameLMH)) {
-                            $query = "SELECT * FROM `mathang` 
-                            JOIN anhmh ON mathang.MaMH = anhmh.MaMH
-                            join khuyenmai on mathang.MaKM = khuyenmai.MaKM
-                            join dmhangsanxuat on mathang.MaHSX = dmhangsanxuat.MaHSX
-                            WHERE TenHSX = '$nameHSX'";
+                            $query = "SELECT * FROM `products` 
+                            JOIN productpicture ON products.ProductID = productpicture.ProductID
+                            join promotion on products.PromotionID = promotion.PromotionID
+                            join brand on products.BrandID = brand.BrandID
+                            WHERE BrandName = '$nameHSX'";
                         } elseif (empty($nameHSX) && !empty($nameLMH)) {
-                            $query = "SELECT * FROM `mathang` 
-                            JOIN anhmh ON mathang.MaMH = anhmh.MaMH
-                            join dmhangsanxuat on mathang.MaHSX = dmhangsanxuat.MaHSX
-                            join khuyenmai on mathang.MaKM = khuyenmai.MaKM
-                            WHERE MaLMH = '$nameLMH'";
+                            $query = "SELECT * FROM `products` 
+                            JOIN productpicture ON products.ProductID = productpicture.ProductID
+                            join brand on products.BrandID = brand.BrandID
+                            join promotion on products.PromotionID = promotion.PromotionID
+                            WHERE ProductTypeID = '$nameLMH'";
                         } else {
-                            $query = "SELECT * FROM `mathang` 
-                            JOIN anhmh ON mathang.MaMH = anhmh.MaMH
-                            join dmhangsanxuat on mathang.MaHSX = dmhangsanxuat.MaHSX
-                            join khuyenmai on mathang.MaKM = khuyenmai.MaKM
-                            WHERE TenHSX = '$nameHSX' AND MaLMH = '$nameLMH'";
+                            $query = "SELECT * FROM `products` 
+                            JOIN productpicture ON products.ProductID = productpicture.ProductID
+                            join brand on products.BrandID = brand.BrandID
+                            join promotion on products.PromotionID = promotion.PromotionID
+                            WHERE BrandName = '$nameHSX' AND ProductTypeID = '$nameLMH'";
                         }
                         $result_products = mysqli_query($conn, $query);
 
                         if (mysqli_num_rows($result_products) <> 0) {
                             while ($row_products = mysqli_fetch_assoc($result_products)) {
-                                $product_name = $row_products["TenMH"];
-                                $product_price = $row_products["DonGia"];
-                                $product_brand = $row_products["TenHSX"];
-                                $product_image = $row_products['DLAnh'];
-                                $product_id = $row_products['MaMH'];
-                                $product_sale = $row_products['GiamGia'];
+                                $product_name = $row_products["ProductID"];
+                                $product_price = $row_products["Price"];
+                                $product_brand = $row_products["brand"];
+                                $product_image = $row_products['PictureData'];
+                                $product_id = $row_products['ProductID'];
+                                $product_sale = $row_products['Discount'];
                                 $price_sale = $product_price - $product_price * $product_sale;
                                 $sale_rate = $product_sale * 100;
                                 $save_price = $product_price - $price_sale;
@@ -389,7 +378,7 @@ if (isset($_GET['filter'])) {
                                                            <div height='100%' width='100%' class='css-1uzm8bv'><img
                                                                    src='$product_image'
                                                                    loading='lazy' hover='zoom' decoding='async'
-                                                                   alt='Máy in phun màu đa chức năng Epson L3550 STD'
+                                                                   alt='Rong nho tách nước'
                                                                    style='width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0px; left: 0px;'>
                                                            </div>
                                                        </div>

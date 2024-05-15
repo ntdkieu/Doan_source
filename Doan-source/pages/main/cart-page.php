@@ -6,24 +6,24 @@ if (!isset($_SESSION['loggedin_customer']) and !isset($_SESSION['loggedin_employ
 }
 
 if (isset($_SESSION['loggedin_customer'])) {
-    $sql = "SELECT * FROM khachhang WHERE MaKH = '" . $_SESSION['MaKH'] . "'";
+    $sql = "SELECT * FROM customers WHERE CustomerID = '" . $_SESSION['CustomerID'] . "'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $info = mysqli_fetch_assoc($result);
-        if (!isset($_SESSION['cart'][$info['MaKH']])) {
-            $_SESSION['cart'][$info['MaKH']] = array();
+        if (!isset($_SESSION['cart'][$info['CustomerID']])) {
+            $_SESSION['cart'][$info['CustomerID']] = array();
         }
         if (isset($_GET["action"])) {
             function update_cart($info, $add = false)
             {
-                foreach ($_POST['quantity'] as $MaMH => $quantity) {
+                foreach ($_POST['Quantity'] as $MaMH => $quantity) {
                     if ($quantity == 0) {
-                        unset($_SESSION['cart'][$info['MaKH']][$MaMH]);
+                        unset($_SESSION['cart'][$info['CustomerID']][$MaMH]);
                     } else {
                         if ($add) {
-                            $_SESSION['cart'][$info['MaKH']][$MaMH] += $quantity;
+                            $_SESSION['cart'][$info['CustomerID']][$MaMH] += $quantity;
                         } else {
-                            $_SESSION['cart'][$info['MaKH']][$MaMH] = $quantity;
+                            $_SESSION['cart'][$info['CustomerID']][$MaMH] = $quantity;
                         }
                     }
                 }
@@ -34,8 +34,8 @@ if (isset($_SESSION['loggedin_customer'])) {
                     header('Location: ?page=cart-page');
                     break;
                 case "delete":
-                    if (isset($_GET['MaMH'])) {
-                        unset($_SESSION['cart'][$info['MaKH']][$_GET['MaMH']]);
+                    if (isset($_GET['ProductID'])) {
+                        unset($_SESSION['cart'][$info['CustomerID']][$_GET['ProductID']]);
                         header('Location: ?page=cart-page');
                     }
                     break;
@@ -50,13 +50,13 @@ if (isset($_SESSION['loggedin_customer'])) {
             }
         }
 
-        if (!empty($_SESSION['cart'][$info['MaKH']])) {
-            $session_array = "'" . implode("','", array_keys($_SESSION['cart'][$info['MaKH']])) . "'";
-            $sql_cart = "SELECT * FROM mathang
-            join dmhangsanxuat on `mathang`.MaHSX = dmhangsanxuat.MaHSX
-            join anhmh on mathang.MaMH = anhmh.MaMH
-            join khuyenmai on mathang.MaKM = khuyenmai.MaKM
-            WHERE mathang.MaMH IN ($session_array)";
+        if (!empty($_SESSION['cart'][$info['CustomerID']])) {
+            $session_array = "'" . implode("','", array_keys($_SESSION['cart'][$info['CustomerID']])) . "'";
+            $sql_cart = "SELECT * FROM products
+            join brand on `products`.BrandID = brand.BrandID
+            join productpicture on products.ProductID = productpicture.ProductID
+            join promotion on products.PromotionID = promotion.PromotionID
+            WHERE products.ProductID IN ($session_array)";
             $result_cart = mysqli_query($conn, $sql_cart);
 
             if ($result_cart) {
@@ -80,7 +80,7 @@ if (isset($_SESSION['loggedin_customer'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>cart-page</title>
 </head>
 
 <body>
@@ -98,20 +98,20 @@ if (isset($_SESSION['loggedin_customer'])) {
                                 <div class="teko-col css-17ajfcv"
                                     style="padding-left: 8px; padding-right: 8px; flex: 0 0 auto;">
                                     <div width="4.875rem" class="css-olmswc"><img
-                                            src="https://lh3.googleusercontent.com/r_xFGeSZ4xFlzdKgItX8Jp82j10sfAnJwvyIYMNpEr9K-gaJzeBnMJJsEd6L51m1of60-l1VjFPj7mvrA7KSyu-WrAXIkxM=rw"
+                                            src="https://www.dtvietnam.com/storage/pagedata/100303/img/images/product/13_z3707785061040_2ed62d01ae2a0db65dbb6725816f742a.jpg"
                                             loading="lazy" decoding="async" style="width: 100%; height: auto;"></div>
                                 </div>
                                 <div class="teko-col css-17ajfcv"
-                                    style="padding-left: 8px; padding-right: 8px; flex: 0 1 35rem;">Điện thoại Samsung
-                                    Galaxy Z Flip4 8GB/128GB (Light Violet) (SM-F721BLVAXXV)</div>
+                                    style="padding-left: 8px; padding-right: 8px; flex: 0 1 35rem;">Tổ yến chưng Nhân Sâm
+                                    </div>
                                 <div class="teko-col css-17ajfcv" style="padding-left: 8px; padding-right: 8px;">x 1
                                 </div>
                             </div>
                         </div>
                         <div class="teko-col css-17ajfcv" style="flex: 0 0 auto;">
                             <div class="teko-row teko-row-end css-1qrgscw"><span color="primary500"
-                                    class="css-1yqf0rb">15.149.000đ</span></div>
-                            <div class="teko-row teko-row-end css-1qrgscw"><span class="css-10zxjrh">22.990.000đ</span>
+                                    class="css-1yqf0rb">52.000đ</span></div>
+                            <div class="teko-row teko-row-end css-1qrgscw"><span class="css-10zxjrh">2.000đ</span>
                             </div>
                         </div>
                     </div>
@@ -126,10 +126,9 @@ if (isset($_SESSION['loggedin_customer'])) {
                             </div>
                         </div>
                         <div class="teko-col css-17ajfcv"
-                            style="padding-left: 8px; padding-right: 8px; flex: 0 1 auto;">Giảm 7.841.000₫ (áp dụng vào
+                            style="padding-left: 8px; padding-right: 8px; flex: 0 1 auto;">Giảm 1.000₫ (áp dụng vào
                             giá sản phẩm)
-                            1x Tai nghe Samsung Galaxy Buds 2 (Đen) (SM-R177NZKAXXV) (Quà tặng)
-                            1x Sạc nhanh Samsung 15W Type C, Trắng (EP-T1510NWEGWW) (Quà tặng)</div>
+                           </div>
                     </div>
                     <div class="css-1v1xspx">
                         <div class="att-checkout-summary css-l1po7j">
@@ -138,7 +137,7 @@ if (isset($_SESSION['loggedin_customer'])) {
                                     <div type="subtitle" class="css-1lg3tx0">Tổng tạm tính</div>
                                 </div>
                                 <div class="teko-col css-17ajfcv" style="text-align: right;">
-                                    <div type="subtitle" color="" class="css-nbdyuc">15.149.000₫</div>
+                                    <div type="subtitle" color="" class="css-nbdyuc">53.000₫</div>
                                 </div>
                             </div>
                             <div class="teko-row teko-row-space-between teko-row-top css-33wqqr">
@@ -147,7 +146,7 @@ if (isset($_SESSION['loggedin_customer'])) {
                                 </div>
                                 <div class="teko-col css-17ajfcv" style="text-align: right;">
                                     <div type="subtitle" color="" class="css-nbdyuc"><span color="primary500"
-                                            class="att-final-price css-1yqf0rb">15.149.000đ</span></div>
+                                            class="att-final-price css-1yqf0rb">53.000đ</span></div>
                                     <div type="caption" color="textSecondary" class="css-172d5l5">(Đã bao gồm VAT)</div>
                                 </div>
                             </div>
@@ -192,7 +191,7 @@ if (isset($_SESSION['loggedin_customer'])) {
                                                     <div class="css-1j4ksfn">
                                                         <div>
                                                             <div type="subtitle" class="css-4eq9p2"><b>CÔNG TY CỔ
-                                                                    PHẦN THƯƠNG MẠI DỊCH VỤ PHONG VŨ</b></div>
+                                                                    PHẦN DT FOOD</b></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -213,13 +212,13 @@ if (isset($_SESSION['loggedin_customer'])) {
                                         if (!empty($result_cart)) {
                                             $total_money = 0;
                                             while ($rows_cart = mysqli_fetch_assoc($result_cart)) {
-                                                $product_name = $rows_cart["TenMH"];
-                                                $product_price = $rows_cart["DonGia"];
-                                                $product_brand = $rows_cart["TenHSX"];
-                                                $product_image = $rows_cart['DLAnh'];
-                                                $product_id = $rows_cart['MaMH'];
-                                                $product_sale = $rows_cart['GiamGia'];
-                                                $quantity = $_SESSION['cart'][$info['MaKH']][$product_id];
+                                                $product_name = $rows_cart["ProductName"];
+                                                $product_price = $rows_cart["Price"];
+                                                $product_brand = $rows_cart["BrandID"];
+                                                $product_image = $rows_cart['PictureData'];
+                                                $product_id = $rows_cart['ProductID'];
+                                                $product_sale = $rows_cart['Discount'];
+                                                $quantity = $_SESSION['cart'][$info['CustomerID']][$product_id];
                                                 $price_sale = $product_price - $product_price * $product_sale;
                                                 $money = ($product_price - $product_price * $product_sale) * $quantity; //Số tiền còn lại
                                                 $sale_rate = $product_sale * 100; //% khuyến mãi
@@ -249,10 +248,10 @@ if (isset($_SESSION['loggedin_customer'])) {
                                                                             class="css-cbrxda"
                                                                             href="">
                                                                             <div type="body" color="textPrimary"
-                                                                                class="css-1h5tj4c">' . $rows_cart['TenMH'] . '</div>
+                                                                                class="css-1h5tj4c">' . $rows_cart['ProductName'] . '</div>
                                                                         </a>
                                                                         <div type="caption" color="textSecondary"
-                                                                            class="css-1f5a6jh">Hãng sản xuấtt: ' . $rows_cart['TenHSX'] . '</div>
+                                                                            class="css-1f5a6jh">Hãng sản xuấtt: ' . $rows_cart['BrandName'] . '</div>
                                                                         <div type="caption" color="textSecondary"
                                                                             class="css-1f5a6jh">' . $rows_cart['LuuTru'] . '</div>
                                                                         

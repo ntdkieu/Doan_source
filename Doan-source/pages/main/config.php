@@ -2,4 +2,4 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "open-source";
+$dbname = "doan";

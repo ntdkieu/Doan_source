@@ -16,11 +16,11 @@ if (isset($_POST["submit"])) {
     $wards = htmlspecialchars($_POST['wards']);
     $address_detail = htmlspecialchars($_POST['address']);
     // $is_default = isset($_POST['isDefault']) ? 1 : 0;
-    $maKH = $_SESSION['MaKH'];
+    $maKH = $_SESSION['CustomerID'];
     // var_dump($full_name, $sdt, $email, $province, $district, $wards, $address_detail, $maKH);
     // exit();
     // Thực hiện truy vấn SQL để chèn dữ liệu vào bảng diachinhanhang
-    $sql_insert_address = "INSERT INTO `diachinhanhang` (`MaKH`, `TenNguoiNhan`, `DiaChi`, `ThanhPho`, `QuanHuyen`, `PhuongXa`, `SoDienThoai`, `Email`)
+    $sql_insert_address = "INSERT INTO `deliveryaddress` (`CustomerID `, `ReceiverName`, `DeliveryAddress`, `City`, `District`, `Ward`, `Phone`, `Email`)
                                                 VALUES ('$maKH','$full_name', '$address_detail', $province, $district,  $wards, '$sdt', '$email')";
 
     // Thực thi truy vấn

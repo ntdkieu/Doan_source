@@ -9,22 +9,22 @@ if (isset($_GET['maMH'])) {
   $maMH = $_GET['maMH'];
 
   $sql = "SELECT *
-        FROM `mathang`
-        JOIN dmhangsanxuat ON mathang.MaHSX = dmhangsanxuat.MaHSX
-        JOIN dmloaimathang ON mathang.MaLMH = dmloaimathang.MaLMH
-        join khuyenmai on `mathang`.MaKM = khuyenmai.MaKM
-        JOIN anhmh ON mathang.MaMH = anhmh.MaMH
-        WHERE mathang.MaMH = '$maMH'";
+        FROM `products`
+        JOIN brand ON products.BrandID = dmhangsanxuat.BrandID
+        JOIN productcategory ON products.ProductTypeID = productcategory.ProductTypeID
+        join promotion on `products`.	PromotionID = promotion.PromotionID
+        JOIN productpicture ON products.CustomerID = productpicture.CustomerID
+        WHERE products.CustomerID = '$maMH'";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $product_name = $row['TenMH'];
-    $product_price = $row["DonGia"];
-    $product_brand = $row["TenHSX"];
-    $product_image = $row['DLAnh'];
-    $product_id = $row['MaMH'];
-    $product_sale = $row['GiamGia'];
+    $product_name = $row['ProductName'];
+    $product_price = $row["Price"];
+    $product_brand = $row["BrandName"];
+    $product_image = $row['PictureData'];
+    $product_id = $row['ProductID'];
+    $product_sale = $row['Discount'];
     $price_sale = $product_price - $product_price * $product_sale;
     $sale_rate = $product_sale * 100;
     $save_price = $product_price - $price_sale;
@@ -39,7 +39,7 @@ if (isset($_GET['maMH'])) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>
-        <?php echo $row['TenMH']; ?>
+        <?php echo $row['ProductName']; ?>
       </title>
     </head>
 
@@ -58,18 +58,18 @@ if (isset($_GET['maMH'])) {
                 height="16" width="16" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.49976 19.0001L15.4998 12.0001L8.49976 5.00012" stroke="currentColor" stroke-width="1.5"
                   stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg></div><a href="?page=search&search-input=<?php echo $row['TenHSX'] ?>" class="breadcrumb-item css-1s8chay">
+              </svg></div><a href="?page=search&search-input=<?php echo $row['BrandName'] ?>" class="breadcrumb-item css-1s8chay">
               <div type="body" class="css-kwe6s1">
-                <?php echo $row['TenHSX']; ?>
+                <?php echo $row['BrandName']; ?>
               </div>
             </a>
             <div class="css-889chh"><svg fill="none" viewBox="0 0 24 24" size="16" class="css-26qhcs" color="placeholder"
                 height="16" width="16" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.49976 19.0001L15.4998 12.0001L8.49976 5.00012" stroke="currentColor" stroke-width="1.5"
                   stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg></div><a href="?page=search&search-input=<?php echo $row['TenLoai'] ?>" class="breadcrumb-item css-1s8chay">
+              </svg></div><a href="?page=search&search-input=<?php echo $row['TypeName'] ?>" class="breadcrumb-item css-1s8chay">
               <div type="body" class="css-kwe6s1">
-                <?php echo $row['TenLoai']; ?>
+                <?php echo $row['TypeName']; ?>
               </div>
             </a>
           </div>
@@ -82,19 +82,19 @@ if (isset($_GET['maMH'])) {
                       data-content-target="productImage"
                       data-content-payload="{&quot;sku&quot;:&quot;230803500&quot;,&quot;screenName&quot;:&quot;productDetail&quot;,&quot;index&quot;:0}">
                       <div class="productDetailPreview" style="cursor: pointer; position: relative; margin-bottom: 0.5rem;">
-                        <div width="100%" class="css-j4683g"><img src="<?php echo $row['DLAnh']; ?>" loading="lazy" hover=""
-                            decoding="async" alt="Laptop Acer" fetchpriority="low"
+                        <div width="100%" class="css-j4683g"><img src="<?php echo $row['PictureData']; ?>" loading="lazy" hover=""
+                            decoding="async" alt="Laptop Acer" fetchpriority="low"PictureData
                             style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0px; left: 0px;">
                         </div>
                       </div>
                       <div class="css-12isv00">
                         <div class="css-1qorxog">
-                          <div height="50px" width="50px" class="css-1dje825"><img src="<?php echo $row['DLAnh']; ?>"
+                          <div height="50px" width="50px" class="css-1dje825"><img src="<?php echo $row['PictureData']; ?>"
                               loading="lazy" decoding="async" alt="Laptop Acer"
                               style="width: 100%; height: 50px; object-fit: contain;"></div>
                         </div>
                         <div class="css-4ok7dy">
-                          <div height="50px" width="50px" class="css-1dje825"><img src="<?php echo $row['DLAnh']; ?>"
+                          <div height="50px" width="50px" class="css-1dje825"><img src="<?php echo $row['PictureData']; ?>"
                               loading="lazy" decoding="async" alt="Laptop Acer"
                               style="width: 100%; height: 50px; object-fit: contain;"></div>
                         </div>
@@ -105,11 +105,8 @@ if (isset($_GET['maMH'])) {
                     </div>
                     <div class="css-1nv5d5l">
                       <ul>
-                        <li>Thiết kế gọn nhẹ</li>
-                        <li>4 chế độ nhiệt</li>
-                        <li>2 chế độ gió</li>
-                        <li>Sấy khô hiệu quả và nhanh chóng</li>
-                        <li>Công nghệ ion bảo vệ da đầu khỏe mạnh</li>
+                        <li>Làm đẹp da</li>
+                        <li>Nâng cao sức khỏe</li>
                       </ul>
                     </div><a target="_blank" rel="noopener noreferrer" class="css-kfv2zc" color="link500">
                       <div type="body" class="button-text css-1c7714w" color="link500">Xem thông tin chi tiết</div>
@@ -118,15 +115,15 @@ if (isset($_GET['maMH'])) {
                   <div class="css-6b3ezu">
                     <div>
                       <h1 class="css-4kh4rf">
-                        <?php echo $row['TenMH']; ?>
+                        <?php echo $row['ProductName']; ?>
                       </h1>
                       <div>
                         <div type="caption" color="textSecondary" class="css-1f5a6jh"
                           style="font-size: 14px; margin-top: -4px;">Thương hiệu: <a target="_self" class="css-cbrxda"
                             href="/dreame-brand.dreame"><span class="css-n67qkj">
                               <?php echo $row['TenHSX']; ?>
-                            </span></a><span class="css-1qgvt7n"></span> || MaMH:
-                          <?php echo $row['MaMH']; ?><span class="css-1qgvt7n"></span>
+                            </span></a><span class="css-1qgvt7n"></span> || Ma:
+                          <?php echo $row['ProdutID']; ?><span class="css-1qgvt7n"></span>
                         </div>
                       </div>
                     </div>
@@ -154,13 +151,13 @@ if (isset($_GET['maMH'])) {
                             alt="icon" height="25" width="25"></div>
                         <div direction="column" height="100%" class="css-petlr1" style="flex: 1 1 0%;">
                           <div>
-                            <div class="att-product-detail-selection-promotion-title-500129 css-1j2vnz6">Giảm 2.500.000₫ (áp
+                            <div class="att-product-detail-selection-promotion-title-500129 css-1j2vnz6">Giảm 10.000₫ (áp
                               dụng vào giá sản phẩm)</div>
                             <div class="att-product-detail-selection-promotion-description-500129 css-756cgs">Khuyến mãi áp
                               dụng khi mua tối thiểu 1 sản phẩm</div>
                           </div>
                           <div width="100%" direction="row" class="css-x52bm1">
-                            <div class="att-product-detail-selection-promotion-ended-at-500129 css-2cgl77">HSD: 24/10/2023
+                            <div class="att-product-detail-selection-promotion-ended-at-500129 css-2cgl77">HSD: 24/07/2024
                             </div>
                             <div class="css-1aa534q">Bỏ chọn</div>
                           </div>
@@ -171,7 +168,7 @@ if (isset($_GET['maMH'])) {
                       <div class="css-f7zc9t">
                         <div class="css-yp9swi">
                           <input size="20" type="text" class="css-1nhnj3v" value="1"
-                            name="quantity[<?php echo $row['MaMH'] ?>]">
+                            name="quantity[<?php echo $row['ProductID'] ?>]">
                           <div type="subtitle" class="css-fdtrln"></div>
                         </div>
                         <div class="css-yp9swi">
@@ -186,17 +183,17 @@ if (isset($_GET['maMH'])) {
                     <div class="BOXKHUYENMAILIENQUAN css-1rggx5t">
                       <div class="css-mz7xyg">Khuyến mãi liên quan</div>
                       <ul>
-                        <li><span>Giảm thêm đến 300.000đ dành cho Học sinh - sinh viên</span><a
+                        <li><span>Giảm thêm đến 30.000đ dành cho Học sinh - Sinh viên</span><a
                             href="https://phongvu.vn/p/chuong-trinh-khuyen-mai-phong-vu" target="blank"
                             class="css-1ty6934">Xem chi tiết</a></li>
                         <li><span>Nhập mã <strong>QRPV9 </strong> khi thanh toán qua VNPAY-QR: <br> - Giảm <span
-                              style="color: rgb(237, 33, 1); font-weight: 500;">50.000đ </span> cho đơn từ 2,500,000đ <br> -
-                            Giảm <span style="color: rgb(237, 33, 1); font-weight: 500;">100.000đ </span> cho đơn từ
-                            5,000,000đ <br> - Giảm <span style="color: rgb(237, 33, 1); font-weight: 500;">350.000đ </span>
-                            cho đơn từ 15,000,000đ</span><a href="https://phongvu.vn/cong-nghe/uu-dai-vnpay/" target="blank"
+                              style="color: rgb(237, 33, 1); font-weight: 500;">100.000đ </span> cho đơn từ 1.000,000đ <br> -
+                            Giảm <span style="color: rgb(237, 33, 1); font-weight: 500;">50.000đ </span> cho đơn từ
+                            500,000đ <br> - Giảm <span style="color: rgb(237, 33, 1); font-weight: 500;">20.000đ </span>
+                            cho đơn từ 400,000đ</span><a href="https://phongvu.vn/cong-nghe/uu-dai-vnpay/" target="blank"
                             class="css-1ty6934">Xem chi tiết</a></li>
                         <li><span>Nhập mã <strong> PVZLP200</strong> giảm thêm đến <span
-                              style="color: rgb(237, 33, 1); font-weight: 500;">200.000đ </span> khi thanh toán qua
+                              style="color: rgb(237, 33, 1); font-weight: 500;">50.000đ </span> khi thanh toán qua
                             ZaloPay</span><a href="https://phongvu.vn/cong-nghe/uu-dai-thanh-toan-zalopay/" target="blank"
                             class="css-1ty6934">Xem chi tiết</a></li>
                       </ul>
@@ -213,7 +210,7 @@ if (isset($_GET['maMH'])) {
                       width="40" height="40" alt="avtSrc" class="css-oxr6q3"></span>
                   <div><a target="_self" class="css-cbrxda"
                       href="/cua-hang/1?pageTitle=C%C3%94NG%20TY%20C%E1%BB%94%20PH%E1%BA%A6N%20TH%C6%AF%C6%A0NG%20M%E1%BA%A0I%20D%E1%BB%8ACH%20V%E1%BB%A4%20PHONG%20V%C5%A8">
-                      <div type="subtitle" class="css-4eq9p2">CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ PHONG VŨ<svg
+                      <div type="subtitle" class="css-4eq9p2">CÔNG TY CỔ PHẦN DT Food<svg
                           fill="currentColor" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 477.867 477.867"
                           size="14" class="css-1ptts6n" color="success500" height="14" width="14"
                           xmlns="http://www.w3.org/2000/svg" style="margin-left: 8px; margin-bottom: 4px;">
@@ -288,7 +285,7 @@ if (isset($_GET['maMH'])) {
                               src="https://lh3.googleusercontent.com/cjYniX0PTM1twy6bUEw4nSG47EEsTcFf7O6NRgWfdrq7JpNTccsNkqxnBExVVTGeocVdkUVbupp17dLNFn-E2gG2V-_aejU=rw"
                               loading="lazy" decoding="async" style="width: 100%; height: 24px;"></div>
                           <div class="att-policy-content-0 css-9yb8e7">
-                            <p>Gói dịch vụ bảo hành/ Sửa chữa tận nơi <a
+                            <p>Gói dịch vụ giao hàng tận nơi <a
                                 href="https://help.phongvu.vn/dich-vu-khach-hang/dich-vu-sua-chua-va-bao-tri">Xem chi
                                 tiết</a></p>
                           </div>
@@ -327,10 +324,6 @@ if (isset($_GET['maMH'])) {
                       <?php echo $row['TenHSX']; ?>
                     </div>
                   </div>
-                  <div class="css-1i3ajxp">
-                    <div type="body" class="css-1lchwqw" style="flex: 2 1 0%;">Bảo hành</div>
-                    <div type="body" class="css-1lchwqw" style="flex: 3 1 0%;">12 tháng</div>
-                  </div>
                   <div type="body" color="textSecondary" class="css-1geo7k4">Thông tin chung</div>
                   <div class="css-1i3ajxp">
                     <div type="body" class="css-1lchwqw" style="flex: 2 1 0%;">Tên sản phẩm</div>
@@ -338,20 +331,7 @@ if (isset($_GET['maMH'])) {
                       <?php echo $row['TenMH']; ?>
                     </div>
                   </div>
-                  <div class="css-1i3ajxp">
-                    <div type="body" class="css-1lchwqw" style="flex: 2 1 0%;">Màu sắc</div>
-                    <div type="body" class="css-1lchwqw" style="flex: 3 1 0%;">Rose Gold</div>
-                  </div>
                   <div type="body" color="textSecondary" class="css-1geo7k4">Thông tin chi tiết</div>
-                  <div class="css-1i3ajxp">
-                    <div type="body" class="css-1lchwqw" style="flex: 2 1 0%;">Công suất</div>
-                    <div type="body" class="css-1lchwqw" style="flex: 3 1 0%;">1600W</div>
-                  </div>
-                  <div class="css-1i3ajxp">
-                    <div type="body" class="css-1lchwqw" style="flex: 2 1 0%;">Tính năng</div>
-                    <div type="body" class="css-1lchwqw" style="flex: 3 1 0%;">- Luồng khí sấy tốc độ cao giúp tóc khô
-                      nhanh<br>- Công nghệ tăng cường ion hoàn toàn mới bảo vệ da đầu khỏe mạnh</div>
-                  </div>
                   <div type="body" color="textSecondary" class="css-1geo7k4">Thông tin kích thước</div>
                   <div type="body" color="textSecondary" class="css-1geo7k4">Thông tin khác</div>
                 </div>
@@ -368,19 +348,19 @@ if (isset($_GET['maMH'])) {
                   <div class="home-page--glide__slides"
                     style="transition: transform 0ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 1417.6px; transform: translate3d(0px, 0px, 0px);">
                     <?php
-                    $sql_products = "SELECT * FROM `mathang` 
-                                        join dmhangsanxuat on `mathang`.MaHSX = dmhangsanxuat.MaHSX 
-                                        join anhmh on mathang.MaMH = anhmh.MaMH
-                                        join khuyenmai on mathang.MaKM = khuyenmai.MaKM";
+                    $sql_products = "SELECT * FROM `products` 
+                        join brand on `products`.BrandID = brand.BrandID
+                        join productpicture on products.ProductID = productpicture.ProductID
+                        join promotion on products.PromotionID = promotion.PromotionID";         
                     $result_products = mysqli_query($conn, $sql_products);
                     if (mysqli_num_rows($result_products) <> 0) {
                       while ($row_products = mysqli_fetch_assoc($result_products)) {
-                        $product_name = $row_products["TenMH"];
-                        $product_price = $row_products["DonGia"];
-                        $product_brand = $row_products["TenHSX"];
-                        $product_image = $row_products['DLAnh'];
-                        $product_id = $row_products['MaMH'];
-                        $product_sale = isset($row_products['GiamGia']) ? $row_products['GiamGia'] : 0;
+                        $product_name = $row_products["ProductName"];
+                        $product_price = $row_products["Price"];
+                        $product_brand = $row_products["BrandName"];
+                        $product_image = $row_products['PictureData'];
+                        $product_id = $row_products['ProductID'];
+                        $product_sale = isset($row_products['Discount']) ? $row_products['Discount'] : 0;
                         $price_sale = $product_price - $product_price * $product_sale - 500000;
                         $sale_rate = $product_sale * 100;
                         $save_price = $product_price - $price_sale + 500000;
@@ -467,9 +447,9 @@ if (isset($_GET['maMH'])) {
     </html>
     <?php
   } else {
-    echo "Không tìm thấy sản phẩm với MaMH: $maMH";
+    echo "Không tìm thấy sản phẩm với ProductID: $maMH";
   }
 } else {
-  echo "MaMH không được cung cấp";
+  echo "ProductID không được cung cấp";
 }
 ?>
